@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @lobbyist.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @lobbyist.description %>
+</p>
+
+<%= link_to 'Edit', edit_lobbyist_path(@lobbyist) %> |
+<%= link_to 'Back', lobbyists_path %>

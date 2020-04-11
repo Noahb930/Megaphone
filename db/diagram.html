@@ -1,0 +1,100 @@
+<html>
+  <head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <div class="mermaid">
+      classDiagram
+        class Representative{
+          +Integer id
+          +String name
+          +String district
+        }
+        class Bill{
+          +Integer id
+          +String number
+          +String shorthand
+          +String status
+          +String session
+          +String summary
+          +String url
+          +Boolean suppourts_gun_control
+        }
+        class Vote{
+          +Integer id
+          +String stance
+          +Integer bill_id
+          +Integer representative_id
+        }
+        class Lobbyist{
+          +Integer id
+          +String name
+          +String description
+        }
+        class Donation{
+          +Integer id
+          +Integer amount
+          +Integer lobbyist_id
+          +Integer representative_id
+        }
+        class Email{
+          +Integer id
+          +String subject
+          +String body
+        }
+        class Issue{
+          +Integer id
+          +String name
+          +String description
+        }
+        class Belief{
+          +Integer id
+          +String description
+          +Integer representative_id
+          +Integer issue_id
+        }
+        class Initiative{
+          +Integer id
+          +String name
+          +String description
+          +DateTime start_date
+          +DateTime end_date
+        }
+        class InitiativeIssue{
+          +Integer id
+          +Integer campaign_id
+          +Integer issue_id
+        }
+        class BillIssue{
+          +Integer id
+          +Integer bill_id
+          +Integer issue_id
+        }
+        class Recipiant{
+          +Integer id
+          +Integer email_id
+          +Integer representative_id
+        }
+
+        Representative "1" --> "*" Belief
+        Representative "1" --> "*" Vote
+        Representative "1" --> "*" Donation
+        Representative "1" --> "*" Recipiant
+
+        Bill "1" --> "*" Vote
+        Bill "1" --> "*" BillIssue
+
+        Issue "1" --> "*" Belief
+        Issue "1" --> "*" BillIssue
+        Issue "1" --> "*" InitiativeIssue
+
+        Initiative "1" --> "*" Email
+        Initiative "1" --> "*" InitiativeIssue
+
+        Lobbyist "1" --> "*" Donation
+
+        Email "1" --> "*" Recipiant
+
+    </div>
+  </body>
+</html>

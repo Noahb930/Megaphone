@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lobbyists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lobbyists.each do |lobbyist| %>
+      <tr>
+        <td><%= lobbyist.name %></td>
+        <td><%= lobbyist.description %></td>
+        <td><%= link_to 'Show', lobbyist %></td>
+        <td><%= link_to 'Edit', edit_lobbyist_path(lobbyist) %></td>
+        <td><%= link_to 'Destroy', lobbyist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lobbyist', new_lobbyist_path %>

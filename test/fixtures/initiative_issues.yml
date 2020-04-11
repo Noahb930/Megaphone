@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  initiative_id: 1
+  issue_id: 1
+
+two:
+  initiative_id: 1
+  issue_id: 1

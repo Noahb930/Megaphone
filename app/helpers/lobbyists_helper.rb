@@ -1,0 +1,2 @@
+module LobbyistsHelper
+end

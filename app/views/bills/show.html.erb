@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @bill.number %>
+</p>
+
+<p>
+  <strong>Shorthand:</strong>
+  <%= @bill.shorthand %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @bill.status %>
+</p>
+
+<p>
+  <strong>Session:</strong>
+  <%= @bill.session %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @bill.summary %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @bill.url %>
+</p>
+
+<p>
+  <strong>Suppourts gun control:</strong>
+  <%= @bill.suppourts_gun_control %>
+</p>
+
+<%= link_to 'Edit', edit_bill_path(@bill) %> |
+<%= link_to 'Back', bills_path %>
