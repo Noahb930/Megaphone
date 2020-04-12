@@ -1,3 +1,3 @@
 class Office < ApplicationRecord
-  belongs_to :representative
+  belongs_to :representative, dependent: :destroy
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_12_020452) do
+ActiveRecord::Schema.define(version: 2020_04_12_184803) do
 
   create_table "beliefs", force: :cascade do |t|
     t.string "description"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_04_12_020452) do
     t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "initiative_id"
   end
 
   create_table "initiative_issues", force: :cascade do |t|
@@ -124,4 +125,18 @@ ActiveRecord::Schema.define(version: 2020_04_12_020452) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "beliefs", "issues"
+  add_foreign_key "beliefs", "representatives"
+  add_foreign_key "bill_issues", "bills"
+  add_foreign_key "bill_issues", "issues"
+  add_foreign_key "donations", "lobbyists"
+  add_foreign_key "donations", "representatives"
+  add_foreign_key "emails", "initiatives"
+  add_foreign_key "initiative_issues", "initiatives"
+  add_foreign_key "initiative_issues", "issues"
+  add_foreign_key "offices", "representatives"
+  add_foreign_key "recipiants", "emails"
+  add_foreign_key "recipiants", "representatives"
+  add_foreign_key "votes", "bills"
+  add_foreign_key "votes", "representatives"
 end
