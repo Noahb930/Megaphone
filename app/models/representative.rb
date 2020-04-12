@@ -7,4 +7,5 @@ class Representative < ApplicationRecord
   has_many :lobbyists, through: :donations
   has_many :recipiants
   has_many :emails, through: :recipiants
+  has_many :offices
 end

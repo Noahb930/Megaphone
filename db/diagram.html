@@ -16,6 +16,16 @@
           +String url
           +String img
         }
+        class Office{
+          +Integer id
+          +String name
+          +String address
+          +String city
+          +String zipcode
+          +String phone
+          +String fax
+          +Integer representative_id
+        }
         class Bill{
           +Integer id
           +String number
@@ -86,6 +96,7 @@
         Representative "1" --> "*" Vote
         Representative "1" --> "*" Donation
         Representative "1" --> "*" Recipiant
+        Representative "1" --> "*" Office
 
         Bill "1" --> "*" Vote
         Bill "1" --> "*" BillIssue
