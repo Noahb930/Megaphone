@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_222543) do
+ActiveRecord::Schema.define(version: 2020_04_12_013206) do
 
   create_table "beliefs", force: :cascade do |t|
     t.string "description"
@@ -96,6 +96,12 @@ ActiveRecord::Schema.define(version: 2020_04_11_222543) do
     t.string "district"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.string "party"
+    t.string "rating"
+    t.string "img"
+    t.string "profession"
+    t.string "url"
   end
 
   create_table "votes", force: :cascade do |t|
