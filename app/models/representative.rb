@@ -11,9 +11,12 @@ class Representative < ApplicationRecord
   has_many :offices, dependent: :destroy
 
   validates :name, :profession, :url, :img, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, unless: :vacant_seat?
   validates :party, format: { with: /\([DRI?](, [A-Z]{1,4})*\)/}
   validates :district, format: { with: /District \d*/}
   validates :rating, format: { with: /[ABCDEF?][+-]?/}
 
+  def vacant_seat?
+    name == "Vacant Seat"
+  end
 end

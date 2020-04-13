@@ -35,24 +35,25 @@ namespace :scrape do
           end
           office = Office.new(name: office_name, address: office_address, city:office_city, zipcode: office_zipcode, phone: office_phone, fax: office_fax, representative_id: representative.id)
           office.save
-        else
-          next
         end
       end
     end
   end
 
   task state_assembly: :environment do
-    @doc = Nokogiri::HTML(open("http://nyassembly.gov/mem/"))
+    @doc = Nokogiri::HTML(URI("http://nyassembly.gov/mem/").open)
     members = @doc.css(".mem-leader")
     members.each do |member|
       url = "http://nyassembly.gov#{member.css("strong a").attr("href")}"
       img = "http://nyassembly.gov#{member.css("img").attr("src")}"
       name = member.css("strong a").text
+      if name.include? "Assembly District"
+        name = "Vacant Seat"
+      end
       district = member.css("strong").text.split("--")[1].strip
-      email = member.css(".mem-email a").text
+      email = member.css(".mem-email a").text.strip
       representative = Representative.new(name: name,url: url, profession: "NY State Assembly Member", email: email, district: district, img: img,rating: "?",party: "(?)")
-      representative.save
+      representative.save!
       locations = member.css(".full-addr")
       locations.each do |location|
         arr = location.text.split("  ")
@@ -68,6 +69,9 @@ namespace :scrape do
           office_fax = arr[idx+2]
           if office_fax != nil
             office_fax = office_fax.gsub(/\D/,"")
+            if office_fax.length < 10
+              office_fax = office_phone[1,3]+office_fax
+            end
             office_fax = "("+office_fax[0,3]+") "+office_fax[3,3]+"-"+office_fax[6,4]
           end
           office_name = if office_address.include? "LOB"
@@ -76,7 +80,7 @@ namespace :scrape do
             "District Office"
           end
           office = Office.new(name: office_name, address: office_address, city:office_city, zipcode: office_zipcode, phone: office_phone, fax: office_fax, representative_id: representative.id)
-          office.save
+          office.save!
         end
       end
     end
