@@ -12,7 +12,7 @@ class Representative < ApplicationRecord
 
   validates :name, :profession, :url, :img, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :party, format: { with: /\([DRI](, [A-Z]{1,4})*\)/}
+  validates :party, format: { with: /\([DRI?](, [A-Z]{1,4})*\)/}
   validates :district, format: { with: /District \d*/}
   validates :rating, format: { with: /[ABCDEF?][+-]?/}
 
