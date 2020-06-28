@@ -1,3 +1,7 @@
+require 'geokit'
+require 'dotenv'
+require 'open-uri'
+Dotenv.load
 class RepresentativesController < ApplicationController
   before_action :set_representative, only: [:show, :edit, :update, :destroy]
 
@@ -35,6 +39,8 @@ class RepresentativesController < ApplicationController
         format.json { render json: @representative.errors, status: :unprocessable_entity }
       end
     end
+
+
   end
 
   # PATCH/PUT /representatives/1
@@ -58,6 +64,63 @@ class RepresentativesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to representatives_url, notice: 'Representative was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def find
+    @reps = []
+    results = Geocoder.search([params[:address], params[:city],params[:zipcode]].join(" "))
+    if results.empty?
+      flash[:error] = "Not a Valid Address"
+      redirect_to root_path
+    elsif results.first.data["address"]["adminDistrict"] != "NY"
+      flash[:error] = "Address is Outside of New York State"
+      redirect_to root_path
+    else
+      latlng = results.first.coordinates
+      loc =  Geokit::LatLng.new(latlng[0], latlng[1])
+      file_paths = ['city_council_map.json','state_assembly_map.json','state_senate_map.json','us_house_map.json']
+      professions = ["NYC City Council Member","NY State Assembly Member","NY State Senator","US House Member"]
+      file_paths.zip(professions).each do |file_path,profession|
+        file = File.read(file_path).downcase
+        map = JSON.parse(file)
+        map["features"].each do |feature|
+          district = "District " + feature["properties"]["district"].to_s.sub(/^[0]+/,'')
+          if feature["geometry"]["type"] == "polygon"
+            points = []
+            feature["geometry"]["coordinates"][0].each do |point|
+              points << Geokit::LatLng.new(point[1], point[0])
+            end
+            polygon = Geokit::Polygon.new(points)
+            if polygon.contains? loc
+              rep = Representative.where(profession:profession).where(district: district).first
+              unless rep.nil?
+                @reps.push(rep)
+              end
+              break
+            end
+          else
+            feature["geometry"]["coordinates"][0].each do |shape|
+              points = []
+              shape.each do |point|
+                points << Geokit::LatLng.new(point[1], point[0])
+              end
+            end
+            polygon = Geokit::Polygon.new(points)
+            if polygon.contains? loc
+              rep = Representative.where(profession:profession).where(district: district).first
+              unless rep.nil?
+                @reps.push(rep)
+              end
+              break
+            end
+          end
+        end
+      end
+      @reps += Representative.where(profession:"US Senator")
+      # respond_to do |format|
+      #   format.html { render :find}
+      # end
     end
   end
 
