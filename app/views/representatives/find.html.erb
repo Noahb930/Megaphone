@@ -1,6 +1,0 @@
-<% content_for :title, "YOUR REPRESENTATIVES" %>
-<% @reps.each_with_index do |representative, index| %>
-  <div class="representative_container" id = "representative_container_<%= index %>">
-    <p><%=representative.profession %> <%=representative.name %>
-  </div>
-<% end %>

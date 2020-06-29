@@ -13,9 +13,41 @@ class RepresentativesController < ApplicationController
 
   # GET /representatives/1
   # GET /representatives/1.json
-  def show
+  def overview
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
   end
-
+  def beliefs
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
+  def votes
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
+  def contributions
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
+  def contact
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
   # GET /representatives/new
   def new
     @representative = Representative.new
@@ -118,9 +150,9 @@ class RepresentativesController < ApplicationController
         end
       end
       @reps += Representative.where(profession:"US Senator")
-      # respond_to do |format|
-      #   format.html { render :find}
-      # end
+      respond_to do |format|
+        format.html { render :show}
+      end
     end
   end
 

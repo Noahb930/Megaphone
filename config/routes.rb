@@ -6,5 +6,9 @@ Rails.application.routes.draw do
   resources :bills
   resources :representatives
   post '/find', to: 'representatives#find'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/partials/overview' => 'representatives#overview', :as => 'overview_representative'
+  get '/partials/beliefs' => 'representatives#beliefs', :as => 'beliefs_representative'
+  get '/partials/votes' => 'representatives#votes', :as => 'votes_representative'
+  get '/partials/contributions' => 'representatives#contributions', :as => 'contributions_representative'
+  get '/partials/contact' => 'representatives#contact', :as => 'contact_representative'
 end

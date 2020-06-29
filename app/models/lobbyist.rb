@@ -1,4 +1,4 @@
 class Lobbyist < ApplicationRecord
-  has_many :donations, dependent: :destroy
-  has_many :representatives, through: :donations
+  has_many :contributions, dependent: :destroy
+  has_many :representatives, through: :contributions
 end

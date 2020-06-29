@@ -90,8 +90,8 @@ input::placeholder {
   padding-right: 25%;
 }
 *{
-  box-sizing: border-box;
   font-family: "Raleway", Helvetica, sans-serif;
+  box-sizing:border-box;
 }
 .nav-list{
   list-style-type: none;

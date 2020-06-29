@@ -1,3 +1,69 @@
 // Place all the styles related to the Representatives controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.rep-container{
+  background-color: #fff;
+  display: grid;
+  width:50%;
+  border-radius: 10px;
+  border: 2px solid #e56f44;
+  margin-left: 20%;
+  grid-template-columns: 1fr, 1fr;
+  grid-template-rows: 1fr, 1fr;
+}
+.rep-nav{
+  background-color: #eee;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  border-bottom: 2px solid #e56f44;
+  grid-row: 1;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-left: 10px;
+}
+.rep-content{
+  grid-row: 2;
+}
+
+.rep-nav-link{
+  text-decoration: none;
+  height:100%;
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: -2px;
+  height: 100%;
+  border-bottom-style:none;
+  border-top: 2px solid #eee;
+  border-right: 2px solid #eee;
+  border-left: 2px solid #eee;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+
+.rep-nav-link:hover{
+  border-color: #e56f44;
+  background-color: inherit;
+  color: black;
+  box-sizing: content-box;
+}
+.rep-nav-link.active{
+  background-color: #fff;
+  border-color: #e56f44;
+  border-bottom: 2px solid #fff;
+}
+.rep-body{
+  padding: 10px;
+}
+.rep-image{
+  border: 2px solid #e56f44;
+  border-radius: 5px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 10px;
+}
+.rep-rating{
+  float: right;
+}
