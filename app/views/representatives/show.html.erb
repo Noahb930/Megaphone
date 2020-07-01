@@ -2,7 +2,17 @@
 <% @reps.each_with_index do |representative, index| %>
   <div class="rep-wrapper">
     <header class="rep-header">
-      <h2><%= representative.profession %> <%= representative.name%> <%= representative.party%> - <%= representative.district%></h2>
+      <span>
+        <%= representative.profession %>
+      </span>
+      <span>
+      <%= representative.name%> <%= representative.party%>
+      </span>
+      <% if representative.district %>
+        <span>
+          - <%= representative.district%>
+        </span>
+      <% end %>
     </header>
     <div class="rep-container" id="rep-container-<%=index%>">
       <%= render :partial => 'overview', :locals => {:@representative => representative, :@index => index} %>

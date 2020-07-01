@@ -6,6 +6,25 @@
     <%= link_to 'Contact', contact_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
 </nav>
 <div class="rep-body">
-  <img class="rep-image" src="<%= @representative.img %>" ></img>
-  <h3 class="rep-rating">Rating: <%= @representative.rating%></h3>
+  <div class="rep-image-container">
+    <img class="rep-image" src="<%= @representative.img %>" ></img>
+  </div>
+  <p class="rep-rating"><span class="bold">Rating:</span> <%= @representative.rating%></p>
+  <div class="office-wrapper">
+    <% offices = @representative.offices %>
+    <% offices.each do |office| %>
+      <div class = "office-container">
+        <div class="office-header"><%=office.name%></div>
+        <div class="office-body">
+          <p><span class="bold">Address: </span><%= office.address %></p>
+          <% if office.phone %>
+            <p><span class="bold">Phone: </span><%= office.phone %></p>
+          <% end %>
+          <% if office.fax %>
+            <p><span class="bold">Fax: </span> <%= office.fax %> </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
