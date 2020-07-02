@@ -193,11 +193,12 @@ class RepresentativesController < ApplicationController
       loc =  Geokit::LatLng.new(latlng[0], latlng[1])
       file_paths = ['city_council_map.json','state_assembly_map.json','state_senate_map.json','us_house_map.json']
       professions = ["NYC City Council Member","NY State Assembly Member","NY State Senator","US House Member"]
-      file_paths.zip(professions).each do |file_path,profession|
+      properties = ["coun_dist","district","district","district"]
+      [file_paths,professions,properties].transpose.each do |file_path,profession,property|
         file = File.read(file_path).downcase
         map = JSON.parse(file)
         map["features"].each do |feature|
-          district = "District " + feature["properties"]["district"].to_s.sub(/^[0]+/,'')
+          district = "District " + feature["properties"][property].to_s.sub(/^[0]+/,'')
           if feature["geometry"]["type"] == "polygon"
             points = []
             feature["geometry"]["coordinates"][0].each do |point|
