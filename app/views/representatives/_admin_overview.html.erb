@@ -1,0 +1,51 @@
+<header class="rep-header">
+  <span>
+    <%=  @representative.profession %>
+  </span>
+  <span>
+  <%=  @representative.name%> <%=  @representative.party%>
+  </span>
+  <% if  @representative.district %>
+    <span>
+      - <%=  @representative.district%>
+    </span>
+  <% end %>
+</header>
+<div class="rep-container" id="rep-container-<%= @index %>">
+  <nav class="rep-nav">
+    <%= link_to 'Overview', admin_overview_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link active"%>
+    <%= link_to 'Beliefs', admin_beliefs_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+    <%= link_to 'Voting Record', admin_votes_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+    <%= link_to 'Campaign Contributions', admin_contributions_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+    <%= link_to 'Contact', admin_contact_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  </nav>
+  <div class="rep-body">
+    <div class="rep-image-container">
+      <img class="rep-image" src="<%= @representative.img %>" ></img>
+    </div>
+    <p class="rep-rating"><span class="bold">Rating:</span> <%= @representative.rating%></p>
+    <div class="office-wrapper">
+      <% offices = @representative.offices %>
+      <% offices.each_with_index do |office, office_index| %>
+        <div class = "office-container">
+          <div class="office-header"><%=office.name%></div>
+          <div class="office-body">
+            <p><span class="bold">Address: </span><%= office.address %></p>
+            <% if office.phone? %>
+              <p><span class="bold">Phone: </span><%= office.phone %></p>
+            <% end %>
+            <% if office.fax? %>
+              <p><span class="bold">Fax: </span> <%= office.fax %> </p>
+            <% end %>
+          </div>
+          <div class="office-footer">
+            <%= link_to 'Edit', edit_office_path(:id => office.id, :index => @index), class: "wide-button", remote: true %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="rep-footer">
+    <%= link_to 'Edit', edit_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "wide-button"%>
+  </div>
+</div>

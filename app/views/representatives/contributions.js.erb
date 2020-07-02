@@ -1,2 +1,1 @@
-var name = "#rep-container-" + <%=@index%>
-$(name).html("<%=j render 'representatives/contributions' %>");
+$("#rep-container-<%=@index%>").html("<%=j render 'representatives/contributions' %>");

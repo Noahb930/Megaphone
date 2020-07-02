@@ -1,0 +1,41 @@
+<div class="rep-nav">
+  <%= link_to 'Overview', admin_overview_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link active"%>
+  <%= link_to 'Beliefs', admin_beliefs_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Voting Record', admin_votes_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Campaign Contributions', admin_contributions_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Contact', admin_contact_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+</div>
+<%= form_with(model: @office, remote: true, class:"edit-office-form") do |form| %>
+  <h2 class="office-edit-form-heading">EDITING OFFICE</h2>
+  <% if @office.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(office.errors.count, "error") %> prohibited this office from being saved:</h2>
+
+      <ul>
+        <% @office.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field office-name-field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+  </div>
+  <div class="field office-address-field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+  <div class="field office-phone-field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+  <div class="field office-fax-field">
+    <%= form.label :fax %>
+    <%= form.text_field :fax %>
+  </div>
+  <input type="hidden" id="index" name="index" value="<%=@index%>">
+  <div class="office-submit-field">
+    <%= submit_tag("Update", class:"submit-button") %>
+  </div>
+<% end %>

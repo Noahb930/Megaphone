@@ -1,0 +1,9 @@
+<nav class="rep-nav">
+  <%= link_to 'Overview', admin_overview_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Beliefs', admin_beliefs_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link active"%>
+  <%= link_to 'Voting Record', admin_votes_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Campaign Contributions', admin_contributions_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Contact', admin_contact_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+</nav>
+<div class="rep-body">
+</div>

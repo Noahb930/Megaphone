@@ -4,13 +4,46 @@ require 'open-uri'
 Dotenv.load
 class RepresentativesController < ApplicationController
   before_action :set_representative, only: [:show, :edit, :update, :destroy]
-
   # GET /representatives
   # GET /representatives.json
   def index
     @representatives = Representative.all
   end
 
+  def us_senate_index
+    @representatives = Representative.where(:profession => "US Senator")
+    respond_to do |format|
+      format.html {render :index}
+    end
+  end
+
+  def us_house_index
+    @representatives = Representative.where(:profession => "US House Member")
+    respond_to do |format|
+      format.html {render :index}
+    end
+  end
+
+  def ny_senate_index
+    @representatives = Representative.where(:profession => "NY State Senator")
+    respond_to do |format|
+      format.html {render :index}
+    end
+  end
+
+  def ny_assembly_index
+    @representatives = Representative.where(:profession => "NY State Assembly Member")
+    respond_to do |format|
+      format.html {render :index}
+    end
+  end
+
+  def nyc_council_index
+    @representatives = Representative.where(:profession => "NYC City Council Member")
+    respond_to do |format|
+      format.html {render :index}
+    end
+  end
   # GET /representatives/1
   # GET /representatives/1.json
   def overview
@@ -20,6 +53,7 @@ class RepresentativesController < ApplicationController
       format.js
     end
   end
+
   def beliefs
     @representative = Representative.find(params[:id])
     @index = params[:index]
@@ -27,6 +61,7 @@ class RepresentativesController < ApplicationController
       format.js
     end
   end
+
   def votes
     @representative = Representative.find(params[:id])
     @index = params[:index]
@@ -34,6 +69,7 @@ class RepresentativesController < ApplicationController
       format.js
     end
   end
+
   def contributions
     @representative = Representative.find(params[:id])
     @index = params[:index]
@@ -48,6 +84,44 @@ class RepresentativesController < ApplicationController
       format.js
     end
   end
+  def admin_overview
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def admin_beliefs
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def admin_votes
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def admin_contributions
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
+  def admin_contact
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
+  end
   # GET /representatives/new
   def new
     @representative = Representative.new
@@ -55,13 +129,17 @@ class RepresentativesController < ApplicationController
 
   # GET /representatives/1/edit
   def edit
+    @representative = Representative.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
   end
 
   # POST /representatives
   # POST /representatives.json
   def create
     @representative = Representative.new(representative_params)
-
     respond_to do |format|
       if @representative.save
         format.html { redirect_to @representative, notice: 'Representative was successfully created.' }
@@ -80,8 +158,10 @@ class RepresentativesController < ApplicationController
   def update
     respond_to do |format|
       if @representative.update(representative_params)
-        format.html { redirect_to @representative, notice: 'Representative was successfully updated.' }
-        format.json { render :show, status: :ok, location: @representative }
+        @index = params[:index]
+        format.js {render :admin_overview}
+        # format.html { redirect_to @representative, notice: 'Representative was successfully updated.' }
+        # format.json { render :show, status: :ok, location: @representative }
       else
         format.html { render :edit }
         format.json { render json: @representative.errors, status: :unprocessable_entity }
@@ -150,9 +230,6 @@ class RepresentativesController < ApplicationController
         end
       end
       @reps += Representative.where(profession:"US Senator")
-      respond_to do |format|
-        format.html { render :show}
-      end
     end
   end
 
@@ -164,6 +241,6 @@ class RepresentativesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def representative_params
-      params.require(:representative).permit(:name, :district)
+      params.require(:representative).permit(:name, :district, :party, :profession, :img, :url, :email, :rating)
     end
 end
