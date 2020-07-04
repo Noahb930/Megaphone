@@ -15,10 +15,18 @@ class IssuesController < ApplicationController
   # GET /issues/new
   def new
     @issue = Issue.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /issues/1/edit
   def edit
+    @issue = Issue.find(params[:id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js
+    end
   end
 
   # POST /issues
@@ -28,8 +36,7 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
-        format.html { redirect_to @issue, notice: 'Issue was successfully created.' }
-        format.json { render :show, status: :created, location: @issue }
+        format.html { redirect_to issues_url, notice: 'Issue was successfully created.' }
       else
         format.html { render :new }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
@@ -42,8 +49,8 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if @issue.update(issue_params)
-        format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @issue }
+        @index = params[:index]
+        format.js {render :show}
       else
         format.html { render :edit }
         format.json { render json: @issue.errors, status: :unprocessable_entity }

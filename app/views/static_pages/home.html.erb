@@ -1,22 +1,18 @@
 <% content_for :title, "FIND MY REPRESENTATIVE" %>
 <div class = "inner">
 	<div class="narrow">
-		<form action="/find" method="post">
+		<form action="/find" method="post" id="find-rep-form">
 	    <%= token_tag %>
-			<div class="row">
-		    <div class = "field col-12">
-		      <input type="text" class="form-control" id="address" name="address" placeholder="Address Line 1">
-		    </div>
-			</div>
-			<div class="row">
-		    <div class = "field col-6">
-		      <input type="text" class="form-control" id="city" name="city" placeholder="City">
-		    </div>
-		    <div class = "field col-6">
-		      <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zipcode">
-		    </div>
-			</div>
-			<div class="row">
+		  <div class = "field" id="address-field">
+		  	<input type="text" class="form-control" id="address" name="address" placeholder="Address Line 1">
+		  </div>
+		  <div class = "field" id="city-field">
+		  	<input type="text" class="form-control" id="city" name="city" placeholder="City">
+		  </div>
+		  <div class = "field" id="zip-field">
+		    <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zipcode">
+		  </div>
+			<div class = "field" id="submit-field">
 				<input type="submit" class="submit-button">
 			</div>
 		</form>

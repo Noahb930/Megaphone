@@ -160,8 +160,6 @@ class RepresentativesController < ApplicationController
       if @representative.update(representative_params)
         @index = params[:index]
         format.js {render :admin_overview}
-        # format.html { redirect_to @representative, notice: 'Representative was successfully updated.' }
-        # format.json { render :show, status: :ok, location: @representative }
       else
         format.html { render :edit }
         format.json { render json: @representative.errors, status: :unprocessable_entity }

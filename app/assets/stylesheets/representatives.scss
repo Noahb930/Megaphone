@@ -18,8 +18,9 @@
   border-radius: 10px;
   border: 2px solid #e56f44;
   margin-left: 5%;
-  max-width: 650px;
+  max-width: 680px;
   margin:auto;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 .rep-nav{
   background-color: #eee;
@@ -62,6 +63,9 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr;
   position: relative;
+  height:50vw;
+  max-height: 340px;
+  background-color: rgba(0,0,0,0.01)
 }
 .rep-image-container{
   padding: 10px;

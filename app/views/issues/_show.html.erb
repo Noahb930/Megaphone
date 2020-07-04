@@ -1,0 +1,10 @@
+<div class = "issue-header">
+  <%= @issue.name %>
+</div>
+<div class= "issue-body">
+  <td><%= @issue.description %></td>
+</div>
+<div class= "issue-footer">
+  <%= link_to 'Edit', edit_issue_path(id:@issue.id,index:@index), class: "wide-button", remote: true %>
+  <%= link_to 'Destroy', @issue, method: :delete, data: { confirm: 'Are you sure?' }, class: "wide-button"%>
+</div>
