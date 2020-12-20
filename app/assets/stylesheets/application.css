@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  */
 *{
   font-family: "Raleway", Helvetica, sans-serif;
@@ -22,24 +23,21 @@
 }
 html{
   width: 100%;
-  min-height: 100%;
-  height: auto;
+  height: 100%;
   background-color: #555;
 }
 body{
   background-color: #eee;
   width: 100%;
-  margin:0;
   min-height: 100%;
-  height: auto;
+  margin:0;
   overflow: auto;
-
+  bottom: 0;
 }
 .outer{
   position: relative;
   padding-bottom: 150px;
-  min-height: 100%;
-  height: auto;
+  min-height: 100vh;
 }
 .navbar{
   background-color: #fff;
@@ -119,7 +117,7 @@ footer{
   text-align: center;
   padding-bottom: 50px;
   padding-top: 10px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   box-shadow: 10px 0px 0px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
   bottom: 0px;
   position: absolute;
@@ -178,4 +176,7 @@ input::placeholder {
 }
 label{
   font-weight: bold;
+}
+.hidden{
+  display:none
 }

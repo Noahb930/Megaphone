@@ -31,11 +31,12 @@
           +Integer id
           +String number
           +String shorthand
+          +String location
           +String status
           +String session
           +String summary
           +String url
-          +Boolean suppourts_gun_control
+          +Boolean endorsed
         }
         class Vote{
           +Integer id
@@ -96,7 +97,7 @@
 
         Representative "1" --> "*" Belief
         Representative "1" --> "*" Vote
-        Representative "1" --> "*" Donation
+        Representative "1" --> "*" Contribution
         Representative "1" --> "*" Recipiant
         Representative "1" --> "*" Office
 
@@ -110,7 +111,7 @@
         Initiative "1" --> "*" Email
         Initiative "1" --> "*" InitiativeIssue
 
-        Lobbyist "1" --> "*" Donation
+        Lobbyist "1" --> "*" Contribution
 
         Email "1" --> "*" Recipiant
 

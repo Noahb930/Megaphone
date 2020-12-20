@@ -1,5 +1,5 @@
 <% content_for :title, "YOUR REPRESENTATIVES" %>
-<% @reps.each_with_index do |representative, index| %>
+<% @reps.each do |representative| %>
   <div class="rep-wrapper">
     <header class="rep-header">
       <span>
@@ -8,14 +8,14 @@
       <span>
       <%= representative.name%> <%= representative.party%>
       </span>
-      <% if representative.district %>
+      <% if representative.district? %>
         <span>
           - <%= representative.district%>
         </span>
       <% end %>
     </header>
-    <div class="rep-container" id="rep-container-<%=index%>">
-      <%= render :partial => 'overview', :locals => {:@representative => representative, :@index => index} %>
+    <div class="rep-container" id="rep-container-<%=representative.id%>">
+      <%= render :partial => 'overview', :locals => {:@representative => representative} %>
     </div>
   </div>
 <% end %>

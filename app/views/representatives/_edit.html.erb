@@ -1,9 +1,9 @@
 <div class="rep-nav">
-  <%= link_to 'Overview', admin_overview_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link active"%>
-  <%= link_to 'Beliefs', admin_beliefs_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Voting Record', admin_votes_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Campaign Contributions', admin_contributions_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Contact', admin_contact_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Overview', overview_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link active"%>
+  <%= link_to 'Beliefs', beliefs_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Voting Record', votes_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Campaign Contributions', contributions_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Contact', contact_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
 </div>
 <%= form_with(model: @representative, remote: true, class:"rep-edit-form") do |form| %>
 
@@ -22,10 +22,10 @@
   <% end %>
   <div class="field rep-profession-field">
     <label for = "representative_profession">Profession</label>
-    <select name="representative[profession] @representative_profession">
+    <select name="representative[profession]" id="representative_profession">
       <option value="NYC City Council Member" <%= "selected" if @representative.profession == "NYC City Council Member" %>>NYC City Council Member</option>
       <option value="NY State Assembly Member" <%= "selected" if @representative.profession == "NY State Assembly Member" %>>NY State Assembly Member</option>
-      <option value="NY State Assembly Member" <%= "selected" if @representative.profession == "NY State Assembly Member" %>>NY State Senator</option>
+      <option value="NY State Senator" <%= "selected" if @representative.profession == "NY State Senator" %>>NY State Senator</option>
       <option value="US House Member" <%= "selected" if @representative.profession == "US House Member" %>>US House Member</option>
       <option value="US Senator" <%= "selected" if @representative.profession == "US Senator" %>>US Senator</option>
     </select>

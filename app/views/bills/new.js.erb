@@ -1,0 +1,72 @@
+
+<%= form_with(model: @bill, local: true) do |form| %>
+  <div class="bill-form">
+    <% if @bill.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+
+        <ul>
+          <% @bill.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field bill-location-field">
+      <label for = "bill_location">Location</label>
+      <select name="bill[locaion]" id="bill_location">
+        <option value="" <%= "selected" unless @bill.location.present? %>>Select A Location</option>
+        <option value="NYC City Council" <%= "selected" if @bill.location == "NYC City Council" %>>NYC City Council</option>
+        <option value="NY State Assembly" <%= "selected" if @bill.location == "NY State Assembly" %>>NY State Assembly</option>
+        <option value="NY State Senate" <%= "selected" if @bill.location == "NY State Assembly" %>>NY State Senator</option>
+        <option value="US House" <%= "selected" if @bill.location == "US House" %>>US House</option>
+        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>US Senate</option>
+      </select>
+    </div>
+
+    <div class="field bill-number-field">
+      <%= form.label :number %>
+      <%= form.text_field :number %>
+    </div>
+
+    <div class="field bill-name-field">
+      <%= form.label :shorthand %>
+      <%= form.text_field :shorthand %>
+    </div>
+
+    <div class="field bill-status-field">
+      <%= form.label :status %>
+      <%= form.text_field :status %>
+    </div>
+
+    <div class="field bill-session-field">
+      <%= form.label :session %>
+      <%= form.text_field :session %>
+    </div>
+
+    <div class="field bill-summary-field">
+      <%= form.label :summary %>
+      <%= form.text_area :summary %>
+    </div>
+
+    <div class="field bill-url-field">
+      <%= form.label :url %>
+      <%= form.text_field :url %>
+    </div>
+
+    <div class="field bill-quality-field">
+      <%# <%= form.label :suppourts_gun_control %> %>
+      <%= form.check_box :suppourts_gun_control %>
+    </div>
+    <div class="field bill-issue-field">
+      <% for issue in Issue.all %>
+        <div class="bill-issue-tag">
+          <input type="checkbox"/>
+        </div>
+      <% end %>
+    </div>
+    <div class="actions bill-field">
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>

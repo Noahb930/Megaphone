@@ -48,7 +48,6 @@ class RepresentativesController < ApplicationController
   # GET /representatives/1.json
   def overview
     @representative = Representative.find(params[:id])
-    @index = params[:index]
     respond_to do |format|
       format.js
     end
@@ -56,7 +55,7 @@ class RepresentativesController < ApplicationController
 
   def beliefs
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
@@ -64,7 +63,6 @@ class RepresentativesController < ApplicationController
 
   def votes
     @representative = Representative.find(params[:id])
-    @index = params[:index]
     respond_to do |format|
       format.js
     end
@@ -72,21 +70,20 @@ class RepresentativesController < ApplicationController
 
   def contributions
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
   end
   def contact
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
   end
   def admin_overview
     @representative = Representative.find(params[:id])
-    @index = params[:index]
     respond_to do |format|
       format.js
     end
@@ -94,7 +91,7 @@ class RepresentativesController < ApplicationController
 
   def admin_beliefs
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
@@ -102,7 +99,7 @@ class RepresentativesController < ApplicationController
 
   def admin_votes
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
@@ -110,14 +107,14 @@ class RepresentativesController < ApplicationController
 
   def admin_contributions
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
   end
   def admin_contact
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
@@ -130,7 +127,7 @@ class RepresentativesController < ApplicationController
   # GET /representatives/1/edit
   def edit
     @representative = Representative.find(params[:id])
-    @index = params[:index]
+
     respond_to do |format|
       format.js
     end
@@ -158,7 +155,7 @@ class RepresentativesController < ApplicationController
   def update
     respond_to do |format|
       if @representative.update(representative_params)
-        @index = params[:index]
+
         format.js {render :admin_overview}
       else
         format.html { render :edit }

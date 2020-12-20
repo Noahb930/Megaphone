@@ -1,9 +1,31 @@
 <nav class="rep-nav">
-  <%= link_to 'Overview', admin_overview_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Beliefs', admin_beliefs_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link active"%>
-  <%= link_to 'Voting Record', admin_votes_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Campaign Contributions', admin_contributions_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Contact', admin_contact_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Overview', admin_overview_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Beliefs', admin_beliefs_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link active"%>
+  <%= link_to 'Voting Record', admin_votes_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Campaign Contributions', admin_contributions_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Contact', admin_contact_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
 </nav>
 <div class="rep-body">
+  <div class="belief-wrapper">
+    <% beliefs = @representative.beliefs %>
+    <% p @representative%>
+    <% beliefs.each do |belief| %>
+      <div class="belief-container" id = "belief-container-<%=belief.id%>">
+        <div class="belief-header">
+          <%= Issue.find(belief.issue_id).name %>
+          <%= fa_icon "angle-down", :onclick => "$(this).toggleClass('fa-angle-down fa-angle-up'); $(\"#belief-container-#{belief.id} .issue-description\").toggleClass(\"expanded\")" %>
+        </div>
+        <div class="belief-body">
+          <p class="issue-description"><%= Issue.find(belief.issue_id).description %></p>
+          <p class="belief-description"><%=belief.description%></p>
+        </div>
+        <div class="belief-footer">
+          <%= link_to 'Edit', edit_belief_path(:id => belief.id), class: "wide-button", remote: true %>
+        </div>
+      </div>
+    <% end %>
+    <div class="belief-container" id="new-belief-container-<%=@representative.id%>">
+      <%= link_to 'New Belief', new_belief_path(:representative_id => @representative.id), class: "wide-button", remote: true%>
+    </div>
+  </div>
 </div>

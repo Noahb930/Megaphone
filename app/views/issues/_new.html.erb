@@ -2,7 +2,7 @@
   NEW ISSUE
 </div>
 <div class= "issue-body">
-  <%= form_with(model: @issue, local: true, class: "@issue-form") do |form| %>
+  <%= form_with(model: @issue, local: true, class: "belief-form") do |form| %>
     <% if @issue.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@issue.errors.count, "error") %> prohibited this issue from being saved:</h2>

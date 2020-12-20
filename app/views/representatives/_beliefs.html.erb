@@ -1,9 +1,24 @@
 <nav class="rep-nav">
-    <%= link_to 'Overview', overview_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-    <%= link_to 'Beliefs', beliefs_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link active"%>
-    <%= link_to 'Voting Record', votes_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-    <%= link_to 'Campaign Contributions', contributions_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
-    <%= link_to 'Contact', contact_representative_path(:id => @representative.id, :index => @index), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Overview', overview_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Beliefs', beliefs_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link active"%>
+  <%= link_to 'Voting Record', votes_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Campaign Contributions', contributions_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
+  <%= link_to 'Contact', contact_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
 </nav>
 <div class="rep-body">
+  <div class="belief-wrapper">
+    <% beliefs = @representative.beliefs %>
+    <% beliefs.each_with_index do |belief, index| %>
+      <div class = "belief-container">
+        <div class="belief-header">
+          <%= Issue.find(belief.issue_id).name %>
+          <%= fa_icon "angle-down", :onclick => "$(this).toggleClass('fa-angle-down fa-angle-up'); $(\"#issue-description-#{@index}-#{index}\").toggleClass(\"expanded\")" %>
+        </div>
+        <div class="belief-body">
+          <p class="issue-description" id="issue-description-<%=@index%>-<%=index%>"><%= Issue.find(belief.issue_id).description %></p>
+          <p class="belief-description"><%=belief.description%></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

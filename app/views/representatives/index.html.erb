@@ -1,6 +1,21 @@
 <% content_for :title, @representatives.first.profession+"S" %>
-<%  @representatives.each_with_index do |representative, index| %>
-  <div class="rep-wrapper" id="rep-wrapper-<%=index%>">
-    <%= render :partial => 'admin_overview', :locals => {:@representative =>  representative, :@index => index} %>
+<%  @representatives.each do |representative| %>
+  <div class="rep-wrapper">
+    <header class="rep-header">
+      <span>
+        <%= representative.profession %>
+      </span>
+      <span>
+      <%= representative.name%> <%= representative.party%>
+      </span>
+      <% if representative.district %>
+        <span>
+          - <%= representative.district%>
+        </span>
+      <% end %>
+    </header>
+    <div class="rep-container" id="rep-container-<%=representative.id%>">
+      <%= render :partial => 'admin_overview', :locals => {:@representative => representative} %>
+    </div>
   </div>
 <% end %>

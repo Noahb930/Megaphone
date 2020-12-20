@@ -20,7 +20,6 @@ class OfficesController < ApplicationController
   # GET /offices/1/edit
   def edit
     @office = Office.find(params[:id])
-    @index = params[:index]
     @representative=Representative.includes(:offices).where(offices: {id: params[:id]})[0]
     respond_to do |format|
       format.js
@@ -48,8 +47,7 @@ class OfficesController < ApplicationController
   def update
     respond_to do |format|
       if @office.update(office_params)
-        @index = params[:index]
-        @representative=Representative.includes(:offices).where(offices: {id: params[:id]})[0]
+        @representative=Representative.find(@office.representative_id)
         format.js {render 'representatives/admin_overview'}
       else
         format.html { render :edit }

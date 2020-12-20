@@ -7,10 +7,13 @@ Rails.application.routes.draw do
   get '/representatives/nyc-council', to: 'representatives#nyc_council_index'
   get '/representatives/:id/edit' => 'representatives#edit', :as => 'edit_representative'
   get '/offices/:id/edit' => 'offices#edit', :as => 'edit_office'
+  get '/beliefs/:id/edit' => 'beliefs#edit', :as => 'edit_belief'
+  get '/beliefs/new' => 'beliefs#new', :as => 'new_belief'
 
   resources :initiatives
   resources :issues
   resources :lobbyists
+  resources :beliefs
   resources :bills
   resources :representatives
   resources :offices

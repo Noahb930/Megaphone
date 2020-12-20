@@ -1,5 +1,92 @@
-<h1>New Bill</h1>
+<% content_for :title, "New Bill" %>
+<%= form_with(model: @bill, local: true) do |form| %>
+  <div class="bill-form">
+    <% if @bill.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
 
-<%= render 'form', bill: @bill %>
+        <ul>
+          <% @bill.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field bill-location-field">
+      <label for = "bill_location">Location</label>
+      <select name="bill[location]" id="bill_location">
+        <option value="" <%= "selected" unless @bill.location.present? %>>Select A Location</option>
+        <option value="NYC City Council" <%= "selected" if @bill.location == "NYC City Council" %>>NYC City Council</option>
+        <option value="NY State Assembly" <%= "selected" if @bill.location == "NY State Assembly" %>>NY State Assembly</option>
+        <option value="NY State Senate" <%= "selected" if @bill.location == "NY State Senate" %>>NY State Senate</option>
+        <option value="US House" <%= "selected" if @bill.location == "US House" %>>US House</option>
+        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>US Senate</option>
+      </select>
+    </div>
 
-<%= link_to 'Back', bills_path %>
+    <div class="field bill-number-field">
+      <%= form.label :number %>
+      <%= form.text_field :number %>
+    </div>
+
+    <div class="field bill-name-field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field bill-status-field">
+      <label for = "bill_status">Status</label>
+      <select name="bill[status]" id="bill_status">
+        <option value="" <%= "selected" unless @bill.location.present? %>>Select A Status</option>
+        <option value="NYC City Council" <%= "selected" if @bill.location == "NYC City Council" %>>Introduced</option>
+        <option value="NY State Assembly" <%= "selected" if @bill.location == "NY State Assembly" %>>Passed One Chamber</option>
+        <option value="NY State Senate" <%= "selected" if @bill.location == "NY State Senate" %>>Passed Both Chambers</option>
+        <option value="US House" <%= "selected" if @bill.location == "US House" %>>Delivered to Executive</option>
+        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>Vetoed</option>
+        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>Overuled</option>
+        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>Enacted</option>
+      </select>
+    </div>
+
+    <div class="field bill-session-field">
+      <label for = "bill_session">Session</label>
+      <select name="bill[session]" id="bill_session">
+        <% (2000..2020).reverse_each do |session| %>
+          <option value="<%=session%>" <%= "selected" if @bill.location == "US Senate" %>><%=session%></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="field bill-summary-field">
+      <%= form.label :summary %>
+      <%= form.text_area :summary %>
+    </div>
+
+    <div class="field bill-url-field">
+      <%= form.label :url %>
+      <%= form.text_field :url %>
+    </div>
+
+    <div class="field bill-endorsed-field">
+      <%= form.label :endorsed %>
+      <%= form.check_box :endorsed %>
+    </div>
+    <div class="field bill-issue-field">
+      <label>Relevant Issues</label>
+      <% Issue.all.each_with_index do |issue, i| %>
+        <label class="bill-issue-tag" for="bill-issue<%=i%>"><%=issue.name%></label>
+        <input type="checkbox" name="issue_ids[]" value="<%=issue.id%>" id="bill-issue<%=i%>" class="hidden">
+      <% end %>
+    </div>
+    <%= form.submit class:"wide-button", id:"bill-new-button"%>
+  </div>
+<% end %>
+<% content_for :page_scripts do%>
+  <script>
+    $('.bill-issue-tag').click(function() {
+
+      $(this).toggleClass('selected');
+    })
+
+  </script>
+<% end %>

@@ -1,3 +1,6 @@
+require 'net/http'
+require 'json'
+require 'dotenv/load'
 class BillsController < ApplicationController
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
@@ -25,9 +28,15 @@ class BillsController < ApplicationController
   # POST /bills.json
   def create
     @bill = Bill.new(bill_params)
-
+    uri = URI("https://legislation.nysenate.gov/api/3/bills/#{@bill.session}/#{@bill.number}?key=#{ENV['OPEN_LEGISLATION_API_KEY']}")
+    response = JSON.parse(Net::HTTP.get(uri))
+    pp response
     respond_to do |format|
       if @bill.save
+        for issue_id in params[:issue_ids]
+          @billissue = BillIssue.new(bill_id:@bill.id,issue_id:issue_id)
+          @billissue.save
+        end
         format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
         format.json { render :show, status: :created, location: @bill }
       else
@@ -69,6 +78,6 @@ class BillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_params
-      params.require(:bill).permit(:number, :shorthand, :status, :session, :summary, :url, :suppourts_gun_control)
+      params.require(:bill).permit(:number, :name, :status, :session, :summary, :url, :endorsed, :location)
     end
 end
