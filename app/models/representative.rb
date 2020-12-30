@@ -10,7 +10,7 @@ class Representative < ApplicationRecord
   has_many :emails, through: :recipiants
   has_many :offices, dependent: :destroy
 
-  validates :name, :profession, :url, presence: true
+  validates :name, :profession, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, :allow_blank => true
   validates :party, format: { with: /\([DRI?](, [A-Z]{1,4})*\)/}, :allow_blank => true
   validates :district, format: { with: /District \d*/}, unless: :is_us_senator?

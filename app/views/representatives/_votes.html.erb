@@ -6,4 +6,22 @@
     <%= link_to 'Contact', contact_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
 </nav>
 <div class="rep-body">
+  <div class="vote-wrapper">
+    <% @representative.votes.each do |vote| %>
+      <% bill = Bill.find(vote.bill_id) %>
+      <div class="vote-container">
+        <div class="vote-header">
+          Voted <%=vote.stance%> on <%= bill.location %> Bill <%= bill.number %> - <%= bill.name %>
+        </div>
+        <div class="vote-body">
+          <p><%= bill.summary %><p>
+          <div class="billissue-container">
+            <% bill.issues.each do |issue| %>
+              <label class="bill-issue-tag selected mini"><%=issue.name%></label>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

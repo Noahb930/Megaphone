@@ -33,21 +33,6 @@
       <%= form.label :name %>
       <%= form.text_field :name %>
     </div>
-
-    <div class="field bill-status-field">
-      <label for = "bill_status">Status</label>
-      <select name="bill[status]" id="bill_status">
-        <option value="" <%= "selected" unless @bill.location.present? %>>Select A Status</option>
-        <option value="NYC City Council" <%= "selected" if @bill.location == "NYC City Council" %>>Introduced</option>
-        <option value="NY State Assembly" <%= "selected" if @bill.location == "NY State Assembly" %>>Passed One Chamber</option>
-        <option value="NY State Senate" <%= "selected" if @bill.location == "NY State Senate" %>>Passed Both Chambers</option>
-        <option value="US House" <%= "selected" if @bill.location == "US House" %>>Delivered to Executive</option>
-        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>Vetoed</option>
-        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>Overuled</option>
-        <option value="US Senate" <%= "selected" if @bill.location == "US Senate" %>>Enacted</option>
-      </select>
-    </div>
-
     <div class="field bill-session-field">
       <label for = "bill_session">Session</label>
       <select name="bill[session]" id="bill_session">
@@ -62,15 +47,11 @@
       <%= form.text_area :summary %>
     </div>
 
-    <div class="field bill-url-field">
-      <%= form.label :url %>
-      <%= form.text_field :url %>
+    <div class="field bill-endorsed-field">
+      <%= form.check_box :endorsed, :class => "checkbox" %>
+      <%= form.label :endorsed %>
     </div>
 
-    <div class="field bill-endorsed-field">
-      <%= form.label :endorsed %>
-      <%= form.check_box :endorsed %>
-    </div>
     <div class="field bill-issue-field">
       <label>Relevant Issues</label>
       <% Issue.all.each_with_index do |issue, i| %>
@@ -87,6 +68,5 @@
 
       $(this).toggleClass('selected');
     })
-
   </script>
 <% end %>
