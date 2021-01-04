@@ -1,5 +1,35 @@
-<h1>New Initiative</h1>
+<% content_for :title, "New Initiative" %>
+<%= form_with(model: @initiative, local: true, class: 'initiative-form') do |form| %>
+  <% if @initiative.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@initiative.errors.count, "error") %> prohibited this initiative from being saved:</h2>
 
-<%= render 'form', initiative: @initiative %>
+      <ul>
+        <% @initiative.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field initiative-name-field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
 
-<%= link_to 'Back', initiatives_path %>
+  <div class="field initiative-description-field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+
+  <div class="field initiative-start-date-field">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div class="field initiative-end-date-field">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date %>
+  </div>
+  <%= form.submit class:"wide-button", id:"initiative-new-button"%>
+<% end %>

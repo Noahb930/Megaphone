@@ -1,3 +1,32 @@
 // Place all the styles related to the Initiatives controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.initiative-form{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  text-align: left;
+  grid-column-gap: 10px;
+  width: 100%;
+  padding:0px 5% 5% 5%;
+}
+.initiative-name-field{
+  grid-row: 1;
+  grid-column: 1 / 3;
+}
+.initiative-description-field{
+  grid-row: 2;
+  grid-column: 1 / 3;
+}
+.initiative-start-date-field{
+  grid-row: 3;
+  grid-column: 1 / 2;
+}
+.initiative-end-date-field{
+  grid-row: 3;
+  grid-column: 2 / 3;
+}
+#initiative-new-button{
+  grid-row: 4;
+  grid-column: 1 / 3;
+}

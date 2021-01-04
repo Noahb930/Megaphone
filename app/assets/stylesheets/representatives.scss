@@ -21,6 +21,9 @@
   max-width: 680px;
   margin:auto;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  height: auto;
+  transition: all .5s ease;
+
 }
 .rep-nav{
   background-color: #eee;
@@ -58,14 +61,19 @@
   transform: translateY(2px);
 }
 .rep-body{
-  height: 340px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr;
   position: relative;
   height:50vw;
   max-height: 340px;
-  background-color: rgba(0,0,0,0.01)
+  background-color: rgba(0,0,0,0.01);
+  overflow: scroll;
+  transition: all .5s ease;
+}
+.rep-body.large{
+  max-height: none;
+  height: auto;
 }
 .rep-image-container{
   padding: 10px;

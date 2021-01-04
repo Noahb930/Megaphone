@@ -20,12 +20,12 @@
     <% @bills.each do |bill| %>
       <tr>
         <td><%= bill.number %></td>
-        <td><%= bill.shorthand %></td>
+        <td><%= bill.name %></td>
         <td><%= bill.status %></td>
         <td><%= bill.session %></td>
         <td><%= bill.summary %></td>
         <td><%= bill.url %></td>
-        <td><%= bill.suppourts_gun_control %></td>
+        <td><%= bill.endorsed %></td>
         <td><%= link_to 'Show', bill %></td>
         <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
         <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>

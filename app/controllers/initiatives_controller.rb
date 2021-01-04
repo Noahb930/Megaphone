@@ -25,7 +25,6 @@ class InitiativesController < ApplicationController
   # POST /initiatives.json
   def create
     @initiative = Initiative.new(initiative_params)
-
     respond_to do |format|
       if @initiative.save
         format.html { redirect_to @initiative, notice: 'Initiative was successfully created.' }

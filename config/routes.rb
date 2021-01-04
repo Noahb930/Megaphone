@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :bills
   resources :representatives
   resources :offices
+  resources :emails
+
   post '/find', to: 'representatives#find'
   get '/representatives/:id/overview' => 'representatives#overview', :as => 'overview_representative'
   get '/representatives/:id/beliefs' => 'representatives#beliefs', :as => 'beliefs_representative'

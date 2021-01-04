@@ -1,3 +1,4 @@
+<% content_for :title, "New Initiative" %>
 <%= form_with(model: initiative, local: true) do |form| %>
   <% if initiative.errors.any? %>
     <div id="error_explanation">

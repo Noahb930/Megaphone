@@ -5,5 +5,47 @@
     <%= link_to 'Campaign Contributions', contributions_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link"%>
     <%= link_to 'Contact', contact_representative_path(:id => @representative.id), :remote => true, class: "rep-nav-link active"%>
 </nav>
-<div class="rep-body">
+<div class="rep-body large">
+  <form class="email-form" action="/emails" accept-charset="UTF-8" data-remote="true" method="post"><input type="hidden" name="authenticity_token" value="hci3UFrURxIt2ir9fdbv+ORqOg3M7NjpdDpcyK5qhGYljZI4VQA9u/2kz4EJoiv7WgNRYEHOWDp+snbsZxzNtQ==">
+    <div class="field email-template-field">
+      <label for="email_template">Template</label>
+      <select id = "email_template">
+        <option value="-1">Select a Template</option>
+        <% @representative.emails.each do |email| %>
+          <option value="<%= email.id %>"><%= email.subject %></option>
+        <% end %>
+        <option value="-1">Blank</option>
+      </select>
+    </div>
+    <div class="field email-subject-field">
+      <label for="email_subject">Subject</label>
+      <input type="text" name="email[subject]" id="email_subject">
+    </div>
+
+    <div class="field email-body-field">
+      <label for="email_body">Body</label>
+      <textarea name="email[body]" id="email_body"></textarea>
+    </div>
+    <input value="1" type="hidden" name="email[initiative_id]" id="email_initiative_id">
+    <input type="submit" name="commit" value="Send" class="wide-button" data-disable-with="CREATE">
+  </form>
 </div>
+<script>
+  let templates = {
+    <% Email.includes(:representatives).where(representatives: {id: @representative.id}).each do |email| %>
+      <%= email.id %>: {
+        subject: "<%= email.subject %>",
+        body: `<%= email.body %>`
+      },
+    <% end %>
+    "-1": {
+      subject: "",
+      body: ""
+    }
+  }
+  $("#email_template").on('change', function() {
+    id = this.value
+    $("#email_subject").val(templates[id]["subject"])
+    $("#email_body").val(templates[id]["body"])
+  });
+</script>

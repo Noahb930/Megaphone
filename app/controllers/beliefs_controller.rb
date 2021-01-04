@@ -25,7 +25,6 @@ class BeliefsController < ApplicationController
   def edit
     @belief = Belief.find(params[:id])
     @rep_index = params[:index]
-    @belief_index =
     @representative=Representative.includes(:beliefs).where(beliefs: {id: params[:id]})[0]
     respond_to do |format|
       format.js
