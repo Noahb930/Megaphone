@@ -25,10 +25,4 @@ Rails.application.routes.draw do
   get '/representatives/:id/votes' => 'representatives#votes', :as => 'votes_representative'
   get '/representatives/:id/contributions' => 'representatives#contributions', :as => 'contributions_representative'
   get '/representatives/:id/contact' => 'representatives#contact', :as => 'contact_representative'
-  get '/representatives/:id/admin-overview' => 'representatives#admin_overview', :as => 'admin_overview_representative'
-  get '/representatives/:id/admin-beliefs' => 'representatives#admin_beliefs', :as => 'admin_beliefs_representative'
-  get '/representatives/:id/admin-votes' => 'representatives#admin_votes', :as => 'admin_votes_representative'
-  get '/representatives/:id/admin-contributions' => 'representatives#admin_contributions', :as => 'admin_contributions_representative'
-  get '/representatives/:id/admin-contact' => 'representatives#admin_contact', :as => 'admin_contact_representative'
-
 end

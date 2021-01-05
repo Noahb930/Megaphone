@@ -1,6 +1,6 @@
 class InitiativesController < ApplicationController
   before_action :set_initiative, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_admin!
   # GET /initiatives
   # GET /initiatives.json
   def index

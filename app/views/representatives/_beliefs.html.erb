@@ -9,8 +9,11 @@
   <div class="belief-wrapper">
     <% beliefs = @representative.beliefs %>
     <% beliefs.each_with_index do |belief, index| %>
-      <div class = "belief-container">
+      <div class="belief-container" id = "belief-container-<%=belief.id%>">
         <div class="belief-header">
+          <% if admin_signed_in? %>
+            <%= link_to '', edit_belief_path(:id => belief.id), class: "fa fa-pencil edit-icon", remote: true %>
+          <% end %>
           <%= Issue.find(belief.issue_id).name %>
           <%= fa_icon "angle-down", :onclick => "$(this).toggleClass('fa-angle-down fa-angle-up'); $(\"#issue-description-#{@index}-#{index}\").toggleClass(\"expanded\")" %>
         </div>
@@ -18,6 +21,11 @@
           <p class="issue-description" id="issue-description-<%=@index%>-<%=index%>"><%= Issue.find(belief.issue_id).description %></p>
           <p class="belief-description"><%=belief.description%></p>
         </div>
+      </div>
+    <% end %>
+    <% if admin_signed_in? %>
+      <div class="belief-container" id="new-belief-container-<%=@representative.id%>">
+        <%= link_to 'New Belief', new_belief_path(:representative_id => @representative.id), class: "wide-button", remote: true%>
       </div>
     <% end %>
   </div>

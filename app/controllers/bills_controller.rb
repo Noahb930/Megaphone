@@ -3,6 +3,7 @@ require 'json'
 require 'dotenv/load'
 class BillsController < ApplicationController
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin!
 
   # GET /bills
   # GET /bills.json

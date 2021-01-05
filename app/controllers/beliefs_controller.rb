@@ -1,6 +1,6 @@
 class BeliefsController < ApplicationController
   before_action :set_belief, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_admin!
   # GET /beliefs
   # GET /beliefs.json
   def index
@@ -40,7 +40,7 @@ class BeliefsController < ApplicationController
     respond_to do |format|
       if @belief.save
         @representative=Representative.includes(:beliefs).where(beliefs: {id: params[:id]})[0]
-        format.js {render 'representatives/admin_beliefs'}
+        format.js {render 'representatives/beliefs'}
         # format.html { redirect_to @belief, notice: 'belief was successfully created.' }
         # format.json { render :show, status: :created, location: @belief }
       else
@@ -56,7 +56,7 @@ class BeliefsController < ApplicationController
     respond_to do |format|
       if @belief.update(belief_params)
         @representative=Representative.find(@belief.representative_id)
-        format.js {render 'representatives/admin_beliefs'}
+        format.js {render 'representatives/beliefs'}
       else
         format.html { render :edit }
         format.json { render json: @belief.errors, status: :unprocessable_entity }

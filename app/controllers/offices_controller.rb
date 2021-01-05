@@ -1,6 +1,6 @@
 class OfficesController < ApplicationController
   before_action :set_office, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_admin!
   # GET /offices
   # GET /offices.json
   def index
@@ -48,7 +48,7 @@ class OfficesController < ApplicationController
     respond_to do |format|
       if @office.update(office_params)
         @representative=Representative.find(@office.representative_id)
-        format.js {render 'representatives/admin_overview'}
+        format.js {render 'representatives/overview'}
       else
         format.html { render :edit }
         format.json { render json: @office.errors, status: :unprocessable_entity }

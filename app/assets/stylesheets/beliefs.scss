@@ -39,6 +39,7 @@
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 .belief-header{
+  position: relative;
   background-color: #eee;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
@@ -49,7 +50,7 @@
 .belief-body{
   text-align: left;
   text-indent: 50px;
-  padding: 10px;
+  padding: 15px;
 }
 .belief-description{
   overflow: hidden;

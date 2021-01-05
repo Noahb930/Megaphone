@@ -13,8 +13,13 @@
   <div class="office-wrapper">
     <% offices = @representative.offices %>
     <% offices.each do |office| %>
-      <div class = "office-container">
-        <div class="office-header"><%=office.name%></div>
+      <div class = "office-container" id="office-container-<%=office.id%>">
+        <div class="office-header">
+          <span><%=office.name%><span>
+            <% if admin_signed_in? %>
+              <%= link_to '', edit_office_path(:id => office.id), class: "fa fa-pencil edit-icon", remote: true %>
+            <% end %>
+        </div>
         <div class="office-body">
           <p><span class="bold">Address: </span><%= office.address %></p>
           <% if office.phone %>

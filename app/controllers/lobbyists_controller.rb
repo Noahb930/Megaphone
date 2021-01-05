@@ -1,5 +1,6 @@
 class LobbyistsController < ApplicationController
   before_action :set_lobbyist, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin!
 
   # GET /lobbyists
   # GET /lobbyists.json
