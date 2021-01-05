@@ -45,25 +45,10 @@ class RepresentativesController < ApplicationController
       format.html {render :index}
     end
   end
-  # GET /representatives/1
-  # GET /representatives/1.json
-  def overview
-    @representative = Representative.find(params[:id])
-    respond_to do |format|
-      format.js
-    end
-  end
 
-  def beliefs
+  def show
     @representative = Representative.find(params[:id])
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def votes
-    @representative = Representative.find(params[:id])
+    @partial = params[:partial]
     respond_to do |format|
       format.js
     end
@@ -76,13 +61,7 @@ class RepresentativesController < ApplicationController
       format.js
     end
   end
-  def contact
-    @representative = Representative.find(params[:id])
-
-    respond_to do |format|
-      format.js
-    end
-  end
+  
   # GET /representatives/new
   def new
     @representative = Representative.new

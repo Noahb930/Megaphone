@@ -20,9 +20,5 @@ Rails.application.routes.draw do
   resources :emails
 
   post '/find', to: 'representatives#find'
-  get '/representatives/:id/overview' => 'representatives#overview', :as => 'overview_representative'
-  get '/representatives/:id/beliefs' => 'representatives#beliefs', :as => 'beliefs_representative'
-  get '/representatives/:id/votes' => 'representatives#votes', :as => 'votes_representative'
-  get '/representatives/:id/contributions' => 'representatives#contributions', :as => 'contributions_representative'
-  get '/representatives/:id/contact' => 'representatives#contact', :as => 'contact_representative'
+  get '/representatives/:id/:partial' => 'representatives#show', :as => 'show_representative'
 end

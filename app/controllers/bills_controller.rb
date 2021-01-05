@@ -35,6 +35,7 @@ class BillsController < ApplicationController
 
     params["issue_ids"].each do |issue_id|
       @billissue = BillIssue.new(bill_id:@bill.id,issue_id:issue_id)
+      @billissue.save
     end
 
     professions = {"US Senate"=>"US Senator", "US House"=>"US House Member"}
@@ -102,7 +103,7 @@ class BillsController < ApplicationController
         if rep["state"] == "NY"
           res = connection.get("members/#{rep["member_id"]}.json")
           if JSON.parse(res.body)["results"][0]["in_office"]
-            @rep = Representative.where(name: rep["name"], profession:professions[@bill.location])
+            @rep = Representative.where(name: rep["name"], profession:professions[@bill.location])[0]
             @vote = Vote.new(stance:rep["vote_position"],bill_id:@bill.id,representative_id:@rep.id)
             @vote.save
           end
