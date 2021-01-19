@@ -1,22 +1,21 @@
-<div class = "belief-header">
-  Editing Belief Regarding <%= Issue.find(@belief.issue_id).name %>
-</div>
-<div class= "belief-body">
-  <%= form_with(model: @belief, remote: true, class: "belief-form") do |form| %>
-    <% if @belief.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@belief.errors.count, "error") %> prohibited this issue from being saved:</h2>
+<%= form_with(model: @belief, remote: true, class: "belief-form") do |form| %>
+  <% if @belief.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@belief.errors.count, "error") %> prohibited this issue from being saved:</h2>
 
-        <ul>
-          <% @belief.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <%= form.text_area :description, class: "belief-description-field" %>
-    <%= form.hidden_field :representative_id, :value => @representative.id %>
-    <%= form.hidden_field :issue_id, :value => @belief.issue_id %>
-    <%= form.submit "UPDATE", class: "wide-button belief-update-button" %>
+      <ul>
+        <% @belief.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-</div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area:description %>
+  </div>
+  <%= form.hidden_field :representative_id, :value => @representative.id %>
+  <%= form.hidden_field :issue_id, :value => @belief.issue_id %>
+  <input type="hidden" id="rep_index" name="rep_index" value="<%=@index%>">
+  <%= form.submit "UPDATE", class: "wide-button" %>
+<% end %>

@@ -1,23 +1,23 @@
-<nav class="rep-nav">
-  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-nav-link active"%>
-  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-nav-link"%>
+<nav class="rep-card-nav">
+  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-card-nav-link active"%>
+  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-card-nav-link"%>
 </nav>
-<div class="rep-body">
-  <div class="vote-wrapper">
+<div class="rep-card-body">
+  <div class="inner-card-wrapper">
     <% @representative.votes.each do |vote| %>
       <% bill = Bill.find(vote.bill_id) %>
-      <div class="vote-container">
-        <div class="vote-header">
+      <div class="inner-card">
+        <div class="inner-card-header">
           Voted <%=vote.stance%> on <%= bill.location %> Bill <%= bill.number %> - <%= bill.name %>
         </div>
-        <div class="vote-body">
+        <div class="inner-card-body">
           <p><%= bill.summary %><p>
-          <div class="billissue-container">
+          <div class="issue-tag-wrapper">
             <% bill.issues.each do |issue| %>
-              <label class="bill-issue-tag selected mini"><%=issue.name%></label>
+              <label class="issue-tag"><%=issue.name%></label>
             <% end %>
           </div>
         </div>

@@ -1,67 +1,66 @@
-<nav class="rep-nav">
-  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-nav-link active"%>
-  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-nav-link"%>
+<nav class="rep-card-nav">
+  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-card-nav-link active"%>
+  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-card-nav-link"%>
 </nav>
-<%= form_with(model: @representative, remote: true, class:"rep-edit-form") do |form| %>
+<div class="rep-card-body large">
+  <%= form_with(model: @representative, remote: true, class:"rep-edit-form") do |form| %>
+    <% if @representative.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@representative.errors.count, "error") %> prohibited this representative from being saved:</h2>
 
-  <h2 class="rep-edit-form-heading">EDITING REPRESENTATIVE</h2>
+        <ul>
+          <% @representative.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field rep-profession-field">
+      <label for = "representative_profession">Profession</label>
+      <select name="representative[profession]" id="representative_profession">
+        <option value="NYC City Council Member" <%= "selected" if @representative.profession == "NYC City Council Member" %>>NYC City Council Member</option>
+        <option value="NY State Assembly Member" <%= "selected" if @representative.profession == "NY State Assembly Member" %>>NY State Assembly Member</option>
+        <option value="NY State Senator" <%= "selected" if @representative.profession == "NY State Senator" %>>NY State Senator</option>
+        <option value="US House Member" <%= "selected" if @representative.profession == "US House Member" %>>US House Member</option>
+        <option value="US Senator" <%= "selected" if @representative.profession == "US Senator" %>>US Senator</option>
+      </select>
+    </div>
+    <div class="field rep-name-field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
 
-  <% if @representative.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@representative.errors.count, "error") %> prohibited this representative from being saved:</h2>
+    <div class="field rep-district-field">
+      <%= form.label :district %>
+      <%= form.text_field :district %>
+    </div>
+    <div class="field rep-party-field">
+      <%= form.label :party %>
+      <%= form.text_field :party %>
+    </div>
+    <div class="field rep-email-field">
+      <%= form.label :email %>
+      <%= form.text_field :email %>
+    </div>
+    <div class="field rep-img-field">
+      <%= form.label :img %>
+      <%= form.text_field :img %>
+    </div>
+    <div class="field rep-url-field">
+      <%= form.label :url %>
+      <%= form.text_field :url %>
+    </div>
+    <div class="field rep-rating-field">
+      <%= form.label :rating %>
+      <%= form.text_field :rating %>
+    </div>
+    <input type="hidden" id="index" name="index" value="<%=@index%>">
 
-      <ul>
-        <% @representative.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <div class="rep-submit-field">
+      <%= submit_tag("Update", class:"wide-button") %>
     </div>
   <% end %>
-  <div class="field rep-profession-field">
-    <label for = "representative_profession">Profession</label>
-    <select name="representative[profession]" id="representative_profession">
-      <option value="NYC City Council Member" <%= "selected" if @representative.profession == "NYC City Council Member" %>>NYC City Council Member</option>
-      <option value="NY State Assembly Member" <%= "selected" if @representative.profession == "NY State Assembly Member" %>>NY State Assembly Member</option>
-      <option value="NY State Senator" <%= "selected" if @representative.profession == "NY State Senator" %>>NY State Senator</option>
-      <option value="US House Member" <%= "selected" if @representative.profession == "US House Member" %>>US House Member</option>
-      <option value="US Senator" <%= "selected" if @representative.profession == "US Senator" %>>US Senator</option>
-    </select>
-  </div>
-  <div class="field rep-name-field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field rep-district-field">
-    <%= form.label :district %>
-    <%= form.text_field :district %>
-  </div>
-  <div class="field rep-party-field">
-    <%= form.label :party %>
-    <%= form.text_field :party %>
-  </div>
-  <div class="field rep-email-field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-  <div class="field rep-img-field">
-    <%= form.label :img %>
-    <%= form.text_field :img %>
-  </div>
-  <div class="field rep-url-field">
-    <%= form.label :url %>
-    <%= form.text_field :url %>
-  </div>
-  <div class="field rep-rating-field">
-    <%= form.label :rating %>
-    <%= form.text_field :rating %>
-  </div>
-  <input type="hidden" id="index" name="index" value="<%=@index%>">
-
-  <div class="rep-submit-field">
-    <%= submit_tag("Update", class:"submit-button") %>
-  </div>
-<% end %>
+</div>

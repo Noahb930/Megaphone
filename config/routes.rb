@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :representatives
   resources :offices
   resources :emails
+  devise_for :admins
 
   post '/find', to: 'representatives#find'
   get '/representatives/:id/:partial' => 'representatives#show', :as => 'show_representative'

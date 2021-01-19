@@ -1,21 +1,23 @@
 <% content_for :title, @representatives.first.profession+"S" %>
-<%  @representatives.each do |representative| %>
-  <div class="rep-wrapper">
-    <header class="rep-header">
-      <span>
-        <%= representative.profession %>
-      </span>
-      <span>
-      <%= representative.name%> <%= representative.party%>
-      </span>
-      <% if representative.district %>
+<div class="rep-wrapper">
+  <%  @representatives.each do |representative| %>
+    <div class="rep-container">
+      <header class="rep-header">
         <span>
-          - <%= representative.district%>
+          <%= representative.profession %>
         </span>
-      <% end %>
-    </header>
-    <div class="rep-container" id="rep-container-<%=representative.id%>">
-      <%= render :partial => 'overview', :locals => {:@representative => representative} %>
+        <span>
+        <%= representative.name%> <%= representative.party%>
+        </span>
+        <% if representative.district %>
+          <span>
+            - <%= representative.district%>
+          </span>
+        <% end %>
+      </header>
+      <div class="rep-card" id="rep-card-<%=representative.id%>">
+        <%= render :partial => 'overview', :locals => {:@representative => representative} %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

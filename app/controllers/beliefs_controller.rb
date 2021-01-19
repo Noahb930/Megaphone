@@ -39,10 +39,9 @@ class BeliefsController < ApplicationController
     p params[:rep_index]
     respond_to do |format|
       if @belief.save
-        @representative=Representative.includes(:beliefs).where(beliefs: {id: params[:id]})[0]
-        format.js {render 'representatives/beliefs'}
-        # format.html { redirect_to @belief, notice: 'belief was successfully created.' }
-        # format.json { render :show, status: :created, location: @belief }
+        @representative=Representative.find(@belief.representative_id)
+        @partial = "beliefs"
+        format.js {render 'representatives/show'}
       else
         format.html { render :new }
         format.json { render json: @belief.errors, status: :unprocessable_entity }
@@ -56,7 +55,8 @@ class BeliefsController < ApplicationController
     respond_to do |format|
       if @belief.update(belief_params)
         @representative=Representative.find(@belief.representative_id)
-        format.js {render 'representatives/beliefs'}
+        @partial = "beliefs"
+        format.js {render 'representatives/show'}
       else
         format.html { render :edit }
         format.json { render json: @belief.errors, status: :unprocessable_entity }

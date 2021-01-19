@@ -1,6 +1,27 @@
 <% content_for :title, "YOUR REPRESENTATIVES" %>
+<svg id="blob1" class="blob" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+    <path class="blob-shape" opacity="0.5" fill="#f1ae96" d="M43,-56.1C55,-50.4,63.7,-37,65,-23.4C66.2,-9.8,60.1,3.9,57.7,21.1C55.3,38.2,56.6,59,47.6,67.2C38.6,75.4,19.3,71.1,2,68.2C-15.2,65.4,-30.4,64.1,-40.9,56.4C-51.3,48.6,-57,34.5,-59.5,20.7C-62,7,-61.3,-6.4,-56.7,-17.8C-52.1,-29.2,-43.6,-38.7,-33.5,-45C-23.3,-51.3,-11.7,-54.4,1.9,-57C15.5,-59.6,30.9,-61.7,43,-56.1Z" />
+    <path class="blob-path" fill="none" d="m 0 0 c 2.3333 131.6667 71 220 34 250"/>
+</svg>
+<svg id="blob2" class="blob" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <path class="blob-shape" opacity="0.5" fill="#F1AE96" d="M26.2,-43.2C35.8,-34.6,46.8,-30.5,59.1,-21.7C71.4,-12.9,85.1,0.7,85.4,13.6C85.6,26.6,72.5,39,58.7,45.7C44.9,52.4,30.4,53.3,16,60.2C1.5,67,-12.9,79.9,-28,81.7C-43.1,83.5,-59,74.2,-66.5,60.4C-73.9,46.7,-72.9,28.5,-70.3,13.2C-67.7,-2.1,-63.4,-14.6,-57.8,-26.2C-52.2,-37.9,-45.3,-48.8,-35.4,-57.3C-25.5,-65.8,-12.8,-71.9,-2.2,-68.4C8.3,-64.9,16.6,-51.8,26.2,-43.2Z" />
+  <path class="blob-path" fill="none" d="m 3 220 c 85 -148 216 145 368 -125"/>
+</svg>
+<svg id="blob3" class="blob" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <path class="blob-shape" opacity="0.5" fill="#F1AE96" d="M25.6,-39.2C32.8,-35.3,37.9,-27.5,45.3,-18.6C52.6,-9.7,62.1,0.3,60,7.9C57.8,15.6,44,20.8,33.9,25.5C23.8,30.1,17.5,34.1,10.2,37.4C2.9,40.7,-5.3,43.4,-14.3,43.2C-23.3,43.1,-33.1,40.1,-42.9,34.2C-52.8,28.2,-62.8,19.4,-64,9.4C-65.1,-0.6,-57.3,-11.6,-53,-25.5C-48.7,-39.5,-47.9,-56.4,-39.6,-59.8C-31.4,-63.2,-15.7,-53.1,-3.2,-48.1C9.2,-43.1,18.4,-43.1,25.6,-39.2Z" />
+  <path class="blob-path" fill="none" d="m 99 86 c -58 116 216 145 154 -5 C 230 -10 114 84 115 -70"/>
+</svg>
+<svg id="blob4" class="blob" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <path class="blob-shape" opacity="0.5" fill="#F1AE96" d="M26.6,-39.4C38.5,-33.7,55,-33.2,65.5,-25.5C75.9,-17.7,80.3,-2.8,77.2,10.3C74.2,23.5,63.7,34.8,53.2,45C42.6,55.2,32.1,64.3,20,67.5C8,70.8,-5.6,68.1,-17.2,62.8C-28.9,57.5,-38.5,49.7,-49.9,40.8C-61.3,32,-74.3,22.3,-78.5,9.7C-82.8,-2.8,-78.2,-18.2,-69.6,-29.7C-61.1,-41.1,-48.6,-48.6,-36.3,-54.2C-24,-59.7,-12,-63.4,-2.4,-59.7C7.3,-56,14.6,-45.1,26.6,-39.4Z" />
+  <path class="blob-path" fill="none" d="m 242 49 c -8 159 -117 74 -144 119"/>
+</svg>
+<svg id="blob5" class="blob" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <path class="blob-shape" opacity="0.5" fill="#F1AE96" d="M30.9,-47.6C43.3,-40,58.8,-37,64,-28.4C69.1,-19.8,63.9,-5.7,56.2,4.1C48.6,13.9,38.6,19.3,31.9,28.4C25.2,37.5,21.9,50.3,13.8,57.3C5.8,64.3,-6.9,65.6,-19.5,63.3C-32.1,61,-44.5,55.2,-56.6,46.3C-68.7,37.3,-80.5,25.3,-78.7,13.6C-76.9,1.8,-61.5,-9.6,-53.1,-22.6C-44.6,-35.7,-43.2,-50.3,-35.5,-59.9C-27.8,-69.6,-13.9,-74.4,-2.3,-70.7C9.2,-67.1,18.5,-55.1,30.9,-47.6Z"" />
+  <path class="blob-path" fill="none" d="m 330 115 c -275 15 -91 -96 -333 -117"/>
+</svg>
+<div class="rep-wrapper">
 <% @reps.each do |representative| %>
-  <div class="rep-wrapper">
+  <div class="rep-container">
     <header class="rep-header">
       <span>
         <%= representative.profession %>
@@ -14,8 +35,33 @@
         </span>
       <% end %>
     </header>
-    <div class="rep-container" id="rep-container-<%=representative.id%>">
+    <div class="rep-card" id="rep-card-<%=representative.id%>">
       <%= render :partial => 'overview', :locals => {:@representative => representative} %>
     </div>
   </div>
+<% end %>
+<% content_for :page_scripts do %>
+  <script>
+    let timelines = []
+    $(window).on('load resize', function(){
+      timelines = [];
+      $(".blob").each(function(index){
+        timeline = anime.timeline({ autoplay: false, duration:1000 });
+        const id = $(this).attr("id");
+        timeline.add({
+          targets: `#${id} .blob-shape`,
+          translateX: anime.path(`#${id} .blob-path`)('x'),
+          translateY: anime.path(`#${id} .blob-path`)('y'),
+          rotate: 135,
+          easing: 'easeOutQuad',
+        });
+        timelines.push(timeline)
+      })
+    })
+    $(window).scroll(function(){
+      timelines.forEach( function(timeline){
+        timeline.seek(timeline.duration * $(window).scrollTop() / ($("body").height() - $(window).height()))
+      })
+    });
+  </script>
 <% end %>

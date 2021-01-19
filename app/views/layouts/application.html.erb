@@ -5,36 +5,37 @@
     <title><%= yield(:title) %> | Megaphone</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <div class = "outer">
-      <nav class="navbar">
-        <ul class="nav-list">
-          <li class="nav-logo">
-            <a href="#">MEGAPHONE</a>
-          </li>
-          <li class = "nav-item">
-            <a href="#">HOME</a>
-          </li>
-          <li class = "nav-item">
-            <a href="#">ABOUT</a>
-          </li>
-          <li class = "nav-item">
-            <a href="#">FAQ</a>
-          </li>
-        </ul>
-      </nav>
+    <nav class="navbar">
+      <ul class="nav-list">
+        <li class="nav-logo">
+          <a href="#">MEGAPHONE</a>
+        </li>
+        <li class = "nav-item">
+          <a href="#">HOME</a>
+        </li>
+        <li class = "nav-item">
+          <a href="#">ABOUT</a>
+        </li>
+        <li class = "nav-item">
+          <a href="#">FAQ</a>
+        </li>
+      </ul>
+    </nav>
+    <div class = "main">
       <header>
+        <br>
         <h1><%= yield(:title) %></h1>
       </header>
       <%= yield %>
-      <footer id="footer">
-        <p class="copyright">© NYC Says Enough. All rights reserved.</p>
-      </footer>
     </div>
+    <footer id="footer">
+      <p></p>
+    </footer>
     <%= yield :page_scripts %>
   </body>
 </html>

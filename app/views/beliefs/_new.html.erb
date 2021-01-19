@@ -1,38 +1,28 @@
-<div class = "belief-header">
-  <p>New Belief</p>
-</div>
-<div class= "belief-body">
-  <%= form_with(model: @belief, remote: true, class: "belief-form") do |form| %>
-    <% if @belief.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@belief.errors.count, "error") %> prohibited this issue from being saved:</h2>
-
-        <ul>
-          <% @belief.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-      <div class="field belief-issue-id-field">
-        <label for="issue_id">Issue</label>
-        <select name="belief[issue_id]" id="issue_id">
-          <option value="" "selected">Select An Issue</option>
-          <% for issue in Issue.where.not(id: @representative.issues.select(:id)) %>
-            <option value=<%=issue.id%>><%=issue.name%></option>
-          <% end %>
-        </select>
-      </div>
-      <div class="field">
-        <%= form.label :description %>
-        <%= form.text_area:description %>
-      </div>
-      <%= form.hidden_field :representative_id, :value => @representative.id %>
-      <input type="hidden" id="rep_index" name="rep_index" value="<%=@index%>">
-
-    <div class="actions">
-      <%= form.submit "CREATE", class: "submit-button" %>
+<%= form_with(model: @belief, remote: true, class: "belief-form") do |form| %>
+  <% if @belief.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@belief.errors.count, "error") %> prohibited this issue from being saved:</h2>
+      <ul>
+        <% @belief.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
-
-</div>
+    <div class="field belief-issue-id-field">
+      <label for="issue_id">Issue</label>
+      <select name="belief[issue_id]" id="issue_id">
+        <option value="" "selected">Select An Issue</option>
+        <% for issue in Issue.where.not(id: @representative.issues.select(:id)) %>
+          <option value=<%=issue.id%>><%=issue.name%></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area:description %>
+    </div>
+    <%= form.hidden_field :representative_id, :value => @representative.id %>
+    <input type="hidden" id="rep_index" name="rep_index" value="<%=@index%>">
+    <%= form.submit "SUBMIT", class: "wide-button" %>
+<% end %>

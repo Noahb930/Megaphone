@@ -1,35 +1,16 @@
-<nav class="rep-nav">
-  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-nav-link active"%>
-  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-nav-link"%>
-  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-nav-link"%>
+<nav class="rep-card-nav">
+  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-card-nav-link active"%>
+  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-card-nav-link"%>
+  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-card-nav-link"%>
+  <% if admin_signed_in? %>
+    <%= link_to '', edit_representative_path(:id => @representative.id), class: "fa fa-pencil edit-icon", remote: true %>
+  <% end %>
 </nav>
-<div class="rep-body">
+<div class="rep-card-body">
   <div class="rep-image-container">
     <img class="rep-image" src="<%= @representative.img %>" ></img>
   </div>
   <p class="rep-rating"><span class="bold">Rating:</span> <%= @representative.rating%></p>
-  <div class="office-wrapper">
-    <% offices = @representative.offices %>
-    <% offices.each do |office| %>
-      <div class = "office-container" id="office-container-<%=office.id%>">
-        <div class="office-header">
-          <span><%=office.name%><span>
-            <% if admin_signed_in? %>
-              <%= link_to '', edit_office_path(:id => office.id), class: "fa fa-pencil edit-icon", remote: true %>
-            <% end %>
-        </div>
-        <div class="office-body">
-          <p><span class="bold">Address: </span><%= office.address %></p>
-          <% if office.phone %>
-            <p><span class="bold">Phone: </span><%= office.phone %></p>
-          <% end %>
-          <% if office.fax %>
-            <p><span class="bold">Fax: </span> <%= office.fax %> </p>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
 </div>
