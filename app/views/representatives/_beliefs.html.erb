@@ -1,31 +1,33 @@
-<nav class="rep-card-nav">
-  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-card-nav-link active"%>
-  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-card-nav-link"%>
+<nav class="card-nav">
+  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "card-nav-link active"%>
+  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link"%>
 </nav>
-<div class="rep-card-body">
-  <div class="inner-card-wrapper">
+<div class="card-body scrollable">
+  <div class="card-wrapper">
     <% beliefs = @representative.beliefs %>
     <% beliefs.each_with_index do |belief, index| %>
-      <div class="inner-card" id = "belief-card-<%=belief.id%>">
-        <div class="inner-card-header">
+      <div class="card inner-card" id = "belief-card-<%=belief.id%>">
+        <div class="card-header">
           <% if admin_signed_in? %>
-            <%= link_to '', edit_belief_path(:id => belief.id), class: "fa fa-pencil edit-icon", remote: true %>
+            <div class="action-icons">
+              <%= link_to '', edit_belief_path(:id => belief.id), class: "fa fa-pencil edit-icon", remote: true %>
+            </div>
           <% end %>
           <%= Issue.find(belief.issue_id).name %>
           <%= fa_icon "angle-down", :onclick => "$(this).toggleClass('fa-angle-down fa-angle-up'); $(\"#issue-description-#{@index}-#{index}\").toggleClass(\"expanded\")" %>
         </div>
-        <div class="inner-card-body">
+        <div class="card-body">
           <p class="issue-description" id="issue-description-<%=@index%>-<%=index%>"><%= Issue.find(belief.issue_id).description %></p>
           <p class="belief-description"><%=belief.description%></p>
         </div>
       </div>
     <% end %>
     <% if admin_signed_in? %>
-      <div class="inner-card" id="new-belief-container-<%=@representative.id%>">
-        <%= link_to 'New Belief', new_belief_path(:representative_id => @representative.id), class: "wide-button", remote: true%>
+      <div class="inner-card" id="new-belief-card-<%=@representative.id%>">
+        <%= link_to 'New Belief', new_belief_path(:representative_id => @representative.id), class: "submit-button", remote: true%>
       </div>
     <% end %>
   </div>

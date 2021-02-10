@@ -1,49 +1,6 @@
 // Place all the styles related to the Issues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.issue-form{
-  margin: 50px;
-  max-width: 500px;
-}
-.issue-container{
-  background-color: #fff;
-  width:90%;
-  border-radius: 10px;
-  border: 2px solid #e56f44;
-  max-width: 680px;
-  margin:20px auto ;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-}
-.issue-header{
-  background-color: #eee;
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-  border-bottom: 2px solid #e56f44;
-  padding-top: 10px;
-  text-align: center;
-  height:40px;
-  font-size: 24px;
-}
-.issue-body{
-  background-color: #fff;
-  height:auto;
-  text-align: left;
-  overflow: scroll;
-  border-radius: inherit;
-  padding: 20px;
-}
-.issue-footer{
-  border-bottom-left-radius: inherit;
-  border-bottom-right-radius: inherit;
-  border-top: 2px solid #e56f44;
-  text-align: center;
-  height:70px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-flow: column;
-  grid-column-gap: 10px;
-  padding: 10px;
-}
 .issue-tag{
   width: auto;
   height: 40px;
@@ -69,15 +26,13 @@
   right:-19px;
   transition: all 0.5s ease;
 }
-.issue-tag p{
-  font-size: 12px;
-  margin: 0;
-}
 .issue-tag.selected{
   background-color: #aaa;
-  // transform: scale(1.2);
-  // margin-right: auto;
 }
 .issue-tag.selected:after{
   border-left-color: #aaa;
+}
+.issue-tag p{
+  font-size: 12px;
+  margin: 0;
 }

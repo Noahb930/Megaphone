@@ -1,9 +1,9 @@
-<nav class="rep-card-nav">
-  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-card-nav-link active"%>
-  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-card-nav-link"%>
+<nav class="card-nav">
+  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "card-nav-link active"%>
+  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link"%>
 </nav>
-<div class="rep-card-body">
+<div class="card-body scrollable">
 </div>

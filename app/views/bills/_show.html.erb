@@ -1,0 +1,15 @@
+<div class = "card-header">
+  <%= @bill.location %> Bill <%= @bill.number %> - <%= @bill.name %>
+  <div class="action-icons">
+    <%= link_to '', edit_bill_path(:id => @bill.id), class: "fa fa-pencil edit-icon"%>
+    <%= link_to '', @bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash edit-icon"%>
+  </div>
+</div>
+<div class= "card-body">
+  <p><%= @bill.summary %></p>
+  <div class="issue-tag-wrapper">
+    <% @bill.issues.each do |issue| %>
+      <label class="issue-tag"><%=issue.name%></label>
+    <% end %>
+  </div>
+</div>

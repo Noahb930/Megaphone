@@ -20,26 +20,25 @@
   <path class="blob-path" fill="none" d="m 330 115 c -275 15 -91 -96 -333 -117"/>
 </svg>
 <div class="rep-wrapper">
-<% @reps.each do |representative| %>
-  <div class="rep-container">
-    <header class="rep-header">
-      <span>
-        <%= representative.profession %>
-      </span>
-      <span>
-      <%= representative.name%> <%= representative.party%>
-      </span>
-      <% if representative.district? %>
+  <% @reps.each do |representative| %>
+      <header class="rep-header">
         <span>
-          - <%= representative.district%>
+          <%= representative.profession %>
         </span>
-      <% end %>
-    </header>
-    <div class="rep-card" id="rep-card-<%=representative.id%>">
-      <%= render :partial => 'overview', :locals => {:@representative => representative} %>
-    </div>
-  </div>
-<% end %>
+        <span>
+        <%= representative.name%> <%= representative.party%>
+        </span>
+        <% if representative.district? %>
+          <span>
+            - <%= representative.district%>
+          </span>
+        <% end %>
+      </header>
+      <div class="card" id="rep-card-<%=representative.id%>">
+        <%= render :partial => 'overview', :locals => {:@representative => representative} %>
+      </div>
+  <% end %>
+</div>
 <% content_for :page_scripts do %>
   <script>
     let timelines = []

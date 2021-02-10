@@ -1,16 +1,21 @@
-<nav class="rep-card-nav">
-  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-card-nav-link active"%>
-  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-card-nav-link"%>
+<nav class="card-nav">
+  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "card-nav-link active"%>
+  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link"%>
   <% if admin_signed_in? %>
-    <%= link_to '', edit_representative_path(:id => @representative.id), class: "fa fa-pencil edit-icon", remote: true %>
+    <div class="action-icons">
+      <%= link_to '', edit_representative_path(:id => @representative.id), class: "fa fa-pencil", remote: true %>
+    </div>
   <% end %>
 </nav>
-<div class="rep-card-body">
+<div class="card-body scrollable">
   <div class="rep-image-container">
     <img class="rep-image" src="<%= @representative.img %>" ></img>
   </div>
-  <p class="rep-rating"><span class="bold">Rating:</span> <%= @representative.rating%></p>
+  <div class="rep-content-container">
+    <p class="rep-rating"><span class="bold">Rating:</span> <%= @representative.rating%></p>
+  </div>
+
 </div>

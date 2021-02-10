@@ -1,0 +1,58 @@
+<%= form_with(model: @bill, local: true, class:"bill-form") do |form| %>
+  <div class="field bill-location-field">
+    <%= form.label :location %>
+    <%= form.select :location, options_for_select(["Select A Location","US Senate","US House","NY State Senate","NY State Assembly","NYC City Council"], :selected => @bill.location) %>
+    <% if @bill.errors[:location].any? %>
+      <span class="error"> <%= @bill.errors.full_messages_for(:location).to_sentence %> </span>
+    <% end %>
+  </div>
+  <div class="field bill-number-field">
+    <%= form.label :number %>
+    <%= form.text_field :number %>
+    <% if @bill.errors[:number].any? %>
+      <span class="error"> <%= @bill.errors.full_messages_for(:number).to_sentence %> </span>
+    <% end %>
+  </div>
+  <div class="field bill-name-field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <% if @bill.errors[:name].any? %>
+      <span class="error"> <%= @bill.errors.full_messages_for(:name).to_sentence %> </span>
+    <% end %>
+  </div>
+  <div class="field bill-session-field">
+    <%= form.label :session %>
+    <%= form.select :session, options_for_select(["Select A Session"]+[*2000..2020], :selected => @bill.session)%>
+    <% if @bill.errors[:session].any? %>
+      <span class="error"> <%= @bill.errors.full_messages_for(:session).to_sentence %> </span>
+    <% end %>
+  </div>
+  <div class="field bill-summary-field">
+    <%= form.label :summary %>
+    <%= form.text_area :summary %>
+    <% if @bill.errors[:summary].any? %>
+      <span class="error"> <%= @bill.errors.full_messages_for(:summary).to_sentence %> </span>
+    <% end %>
+  </div>
+  <div class="field bill-endorsed-field">
+    <%= form.check_box :endorsed, :class => "custom" %>
+    <%= form.label :endorsed%>
+  </div>
+  <div class="field bill-issue-field">
+    <label>Relevant Issues</label>
+    <div class="issue-tag-wrapper">
+      <% Issue.all.each_with_index do |issue, i| %>
+        <label class="issue-tag" for="issue-<%=i%>"><%=issue.name%></label>
+        <input type="checkbox" name="issue_ids[]" value="<%=issue.id%>" id="issue-<%=i%>" class="hidden">
+      <% end %>
+    </div>
+  </div>
+  <%= form.submit :class => "submit-button bill-submit-button"%>
+<% end %>
+<% content_for :page_scripts do%>
+  <script>
+    $('.issue-tag').click(function() {
+      $(this).toggleClass('selected');
+    })
+  </script>
+<% end %>

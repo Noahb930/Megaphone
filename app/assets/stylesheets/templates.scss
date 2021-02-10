@@ -1,0 +1,19 @@
+.template-recipiants, .template-subject, .template-body{
+  display: block;
+}
+.template-body{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px #999 solid;
+  white-space: pre;
+}
+.recipiant-wrapper{
+  height: 400px;
+  overflow: scroll;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}

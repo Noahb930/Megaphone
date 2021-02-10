@@ -1,6 +1,6 @@
 <% content_for :title, @representatives.first.profession+"S" %>
 <div class="rep-wrapper">
-  <%  @representatives.each do |representative| %>
+  <% @representatives.each do |representative| %>
     <div class="rep-container">
       <header class="rep-header">
         <span>
@@ -9,13 +9,13 @@
         <span>
         <%= representative.name%> <%= representative.party%>
         </span>
-        <% if representative.district %>
+        <% if representative.district? %>
           <span>
             - <%= representative.district%>
           </span>
         <% end %>
       </header>
-      <div class="rep-card" id="rep-card-<%=representative.id%>">
+      <div class="outer-card" id="rep-card-<%=representative.id%>">
         <%= render :partial => 'overview', :locals => {:@representative => representative} %>
       </div>
     </div>

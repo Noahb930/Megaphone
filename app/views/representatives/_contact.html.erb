@@ -1,41 +1,40 @@
-<nav class="rep-card-nav">
-  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "rep-card-nav-link"%>
-  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "rep-card-nav-link active"%>
+<nav class="card-nav">
+  <%= link_to 'Overview', show_representative_path(:id => @representative.id, :partial => 'overview'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Beliefs', show_representative_path(:id => @representative.id, :partial => 'beliefs'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Voting Record', show_representative_path(:id => @representative.id, :partial => 'votes'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "card-nav-link"%>
+  <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link active"%>
 </nav>
-<div class="rep-card-body large">
+<div class="card-body large">
   <form class="email-form" action="/emails" accept-charset="UTF-8" data-remote="true" method="post"><input type="hidden" name="authenticity_token" value="hci3UFrURxIt2ir9fdbv+ORqOg3M7NjpdDpcyK5qhGYljZI4VQA9u/2kz4EJoiv7WgNRYEHOWDp+snbsZxzNtQ==">
-    <div class="field email-template-field">
-      <label for="email_template">Template</label>
-      <select id = "email_template">
+    <div class="field template-name-field">
+      <label for="template_name">Template</label>
+      <select id = "template_name">
         <option value="-1">Select a Template</option>
-        <% @representative.emails.each do |email| %>
-          <option value="<%= email.id %>"><%= email.subject %></option>
+        <% @representative.templates.each do |template| %>
+          <option value="<%= template.id %>"><%= template.name %></option>
         <% end %>
         <option value="-1">Blank</option>
       </select>
     </div>
-    <div class="field email-subject-field">
-      <label for="email_subject">Subject</label>
-      <input type="text" name="email[subject]" id="email_subject">
+    <div class="field draft-subject-field">
+      <label for="draft_subject">Subject</label>
+      <input type="text" name="draft[subject]" id="draft_subject">
     </div>
 
-    <div class="field email-body-field">
-      <label for="email_body">Body</label>
-      <textarea name="email[body]" id="email_body"></textarea>
+    <div class="field draft-body-field">
+      <label for="draft_body">Body</label>
+      <textarea name="draft[body]" id="draft_body"></textarea>
     </div>
-    <input value="1" type="hidden" name="email[initiative_id]" id="email_initiative_id">
-    <input type="submit" name="commit" value="Send" class="wide-button" data-disable-with="CREATE">
+    <input type="submit" name="commit" value="Send" class="submit-button" data-disable-with="CREATE">
   </form>
 </div>
 <script>
   let templates = {
-    <% Email.includes(:representatives).where(representatives: {id: @representative.id}).each do |email| %>
-      <%= email.id %>: {
-        subject: "<%= email.subject %>",
-        body: `<%= email.body %>`
+    <% @representative.templates.each do |template| %>
+      <%= template.id %>: {
+        subject: "<%= template.subject %>",
+        body: `<%= template.body %>`
       },
     <% end %>
     "-1": {
@@ -43,9 +42,9 @@
       body: ""
     }
   }
-  $("#email_template").on('change', function() {
+  $("#template_name").on('change', function() {
     id = this.value
-    $("#email_subject").val(templates[id]["subject"])
-    $("#email_body").val(templates[id]["body"])
+    $("#draft_subject").val(templates[id]["subject"])
+    $("#draft_body").val(templates[id]["body"])
   });
 </script>

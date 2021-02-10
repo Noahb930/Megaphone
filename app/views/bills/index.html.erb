@@ -1,39 +1,9 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Bills</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Number</th>
-      <th>Shorthand</th>
-      <th>Status</th>
-      <th>Session</th>
-      <th>Summary</th>
-      <th>Url</th>
-      <th>Suppourts gun control</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @bills.each do |bill| %>
-      <tr>
-        <td><%= bill.number %></td>
-        <td><%= bill.name %></td>
-        <td><%= bill.status %></td>
-        <td><%= bill.session %></td>
-        <td><%= bill.summary %></td>
-        <td><%= bill.url %></td>
-        <td><%= bill.endorsed %></td>
-        <td><%= link_to 'Show', bill %></td>
-        <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
-        <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Bill', new_bill_path %>
+<% content_for :title, "BILLS" %>
+<% @bills.each do |bill| %>
+  <div class="card" id="bill-card-<%=bill.id%>">
+    <%= render :partial => 'show', :locals => {:@bill =>  bill} %>
+  </div>
+<% end %>
+<div class="card" id="new-bill-card">
+  <%= link_to 'New Bill', new_bill_path(), class: "submit-button" %>
+</div>

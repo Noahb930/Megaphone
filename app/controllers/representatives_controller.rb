@@ -4,7 +4,7 @@ require 'open-uri'
 Dotenv.load
 class RepresentativesController < ApplicationController
   before_action :set_representative, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!, except: [:find, :overview, :beliefs, :votes, :contributions, :contact]
+  before_action :authenticate_admin!, except: [:find, :show]
   # GET /representatives
   # GET /representatives.json
   def index
@@ -61,7 +61,7 @@ class RepresentativesController < ApplicationController
       format.js
     end
   end
-  
+
   # GET /representatives/new
   def new
     @representative = Representative.new
@@ -70,7 +70,6 @@ class RepresentativesController < ApplicationController
   # GET /representatives/1/edit
   def edit
     @representative = Representative.find(params[:id])
-
     respond_to do |format|
       format.js
     end

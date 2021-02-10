@@ -1,10 +1,10 @@
-<div class = "issue-header">
+<div class = "card-header">
   <%= @issue.name %>
+  <div class="action-icons">
+    <%= link_to '', edit_issue_path(:id => @issue.id), class: "fa fa-pencil edit-icon"%>
+    <%= link_to '', @issue, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash edit-icon"%>
+  </div>
 </div>
-<div class= "issue-body">
-  <td><%= @issue.description %></td>
-</div>
-<div class= "issue-footer">
-  <%= link_to 'Edit', edit_issue_path(id:@issue.id,index:@index), class: "wide-button", remote: true %>
-  <%= link_to 'Destroy', @issue, method: :delete, data: { confirm: 'Are you sure?' }, class: "wide-button"%>
+<div class= "card-body">
+  <p><%= @issue.description %></p>
 </div>
