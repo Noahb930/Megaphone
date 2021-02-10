@@ -1,0 +1,26 @@
+<div class="card-body">
+  <%= form_with(model: @template, remote: true, class: "template-form") do |form| %>
+    <div class="field template-name-field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+    <div class="field template-subject-field">
+      <%= form.label :subject %>
+      <%= form.text_field :subject %>
+    </div>
+    <div class="field template-body-field">
+      <%= form.label :body %>
+      <%= form.text_area :body %>
+    </div>
+    <label>Recipiants</label>
+    <div class = "recipiant-wrapper">
+      <%= form.collection_check_boxes :representative_ids, Representative.all, :id, :name do |b| %>
+        <div class="recipiant-field">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+    <%= form.submit "Update", class: "submit-button" %>
+  <% end %>
+</div>

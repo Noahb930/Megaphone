@@ -55,11 +55,11 @@
           +Integer lobbyist_id
           +Integer representative_id
         }
-        class Email{
+        class Template{
           +Integer id
+          +String name
           +String subject
           +String body
-          +Integer initiative_id
         }
         class Issue{
           +Integer id
@@ -72,18 +72,6 @@
           +Integer representative_id
           +Integer issue_id
         }
-        class Initiative{
-          +Integer id
-          +String name
-          +String description
-          +DateTime start_date
-          +DateTime end_date
-        }
-        class InitiativeIssue{
-          +Integer id
-          +Integer campaign_id
-          +Integer issue_id
-        }
         class BillIssue{
           +Integer id
           +Integer bill_id
@@ -91,7 +79,7 @@
         }
         class Recipiant{
           +Integer id
-          +Integer email_id
+          +Integer template_id
           +Integer representative_id
         }
 
@@ -106,14 +94,10 @@
 
         Issue "1" --> "*" Belief
         Issue "1" --> "*" BillIssue
-        Issue "1" --> "*" InitiativeIssue
-
-        Initiative "1" --> "*" Email
-        Initiative "1" --> "*" InitiativeIssue
 
         Lobbyist "1" --> "*" Contribution
 
-        Email "1" --> "*" Recipiant
+        Template "1" --> "*" Recipiant
 
     </div>
   </body>

@@ -1,7 +1,0 @@
-$("#email-container-<%=@email.id%>").html(`<%= link_to '', edit_email_path(:id => @email.id), class: 'fa fa-pencil edit-icon', remote: true %>
-<span>
-  <strong>To:</strong> <%= @email.representatives.map {|rep| rep.name }.to_sentence %>
-</span>
-<span><strong>Subject:</strong> <%= @email.subject %></span>
-<br>
-<span><%= @email.body %></span>`)

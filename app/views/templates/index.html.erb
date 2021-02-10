@@ -1,0 +1,9 @@
+<% content_for :title, "Email Templates" %>
+<% @templates.each do |template| %>
+  <div class="card" id="template-card-<%=template.id%>">
+    <%= render :partial => 'show', :locals => {:@template =>  template} %>
+  </div>
+<% end %>
+<div class="card" id="new-template-card">
+  <%= link_to 'New Email Template', new_template_path, class: "submit-button", remote: true%>
+</div>
