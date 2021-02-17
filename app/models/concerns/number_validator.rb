@@ -1,11 +1,13 @@
 class NumberValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     if record.location == "NY State Senate"
-      if value.match(/^S\d+$/)
-        res = Faraday.get("https://legislation.nysenate.gov/api/3/bills/#{record.session}/#{value}") do |req|
-          req.params['key'] = ENV["OPEN_LEGISLATION_API_KEY"]
-        end
-        unless JSON.parse(res.body)["results"].present?
+      if value.match(/^S|A\d+$/)
+        connection = Faraday.new(
+          url: "https://v3.openstates.org",
+          headers: {"X-API-KEY" => ENV["OPEN_STATES_API_KEY"]},
+        )
+        res = connection.get("bills/New%20York/#{record.session.to_i}-#{record.session.to_i+1}/#{value}")
+        unless JSON.parse(res.body).key?("id")
           record.errors.add(attribute, "does not reference an existing bill")
         end
       else

@@ -32,66 +32,22 @@ class BillsController < ApplicationController
   def create
     @bill = Bill.new(bill_params)
     if @bill.save
-
-      params["issue_ids"].each do |issue_id|
-        @billissue = BillIssue.new(bill_id:@bill.id,issue_id:issue_id)
-        @billissue.save
-      end
-
-      professions = {"US Senate"=>"US Senator", "US House"=>"US House Member"}
-
-      if @bill.location == "NYC City Council"
+      professions = {"US Senate"=>"US Senator", "US House"=>"US House Member", "NY State Senate"=>"NY State Senator", "NY State Assembly"=>"NY State Assembly Member"}
+      if @bill.location == "NY State Senate" || @bill.location == "NY State Assembly"
         connection = Faraday.new(
-          url: "https://webapi.legistar.com/v1/nyc",
-          params: {"token" => ENV["NYC_LEGISTAR_API_KEY"]}) do |f|
-          f.request :url_encoded
-        end
-        res = connection.get("matters") do |req|
-          req.params["$filter"] = "MatterEnactmentNumber eq '#{@bill.session}/#{@bill.number}'"
-        end
-        matter_id = JSON.parse(res.body)[0]['MatterId']
-        res = connection.get("matters/#{matter_id}/histories") do |req|
-          req.params["$filter"] = "MatterHistoryActionName eq 'Approved by Council'"
-        end
-        event_id = JSON.parse(res.body)[0]["MatterHistoryEventId"]
-        res = connection.get("events/#{event_id}/EventItems") do |req|
-          req.params["$filter"] = "EventItemMatterId eq #{matter_id}"
-        end
-        eventitem_id= JSON.parse(res.body)[-1]["EventItemId"]
-        pp JSON.parse(res.body)
-        p eventitem_id
-        res = connection.get("EventItems/#{eventitem_id}/votes")
-        pp JSON.parse(res.body)
-        JSON.parse(res.body).each do |vote|
-          res = connection.get("persons/#{vote["VotePersonId"]}")
-          person = JSON.parse(res.body)
-          if person["PersonActiveFlag"]
-            pp person["PersonWWW"].scan(/\d+/)[0].to_i
-          end
-        end
-      end
-      if @bill.location == "NY State Senate"
-        connection = Faraday.new(
-          url: "https://legislation.nysenate.gov/api/3",
-          params: {"key" => ENV["OPEN_LEGISLATION_API_KEY"]}
+          url: "https://v3.openstates.org",
+          headers: {"X-API-KEY" => ENV["OPEN_STATES_API_KEY"]},
         )
-        res = connection.get("bills/#{@bill.session}/#{@bill.number}")
-        bill = JSON.parse(res.body)['result']
-
-        bill['votes']['items'][-1]["memberVotes"]["items"].each do |vote,voters|
-          voters["items"].each do |rep|
-            if rep["incumbent"]
-              begin
-                @rep = Representative.where(district: "District #{rep["districtCode"]}", profession:"NY State Senator")[0]
-                @vote = Vote.new(stance:vote.titleize,bill_id:@bill.id,representative_id:@rep.id)
-                @vote.save
-              rescue NoMethodError => e
-              end
-            end
-          end
+        res = connection.get("bills/New%20York/2019-2020/S2451") do |req|
+          req.options.params_encoder = Faraday::FlatParamsEncoder
+          req.params["include"] = ["votes"]
         end
-      end
-      if @bill.location == "US House" || @bill.location == "US Senate"
+        JSON.parse(res.body)["votes"][0]["votes"].each do |vote|
+          @rep = Representative.where(name: vote["voter_name"], profession:professions[@bill.location])[0]
+          @vote = Vote.new(stance:rep["option"],bill_id:@bill.id,representative_id:@rep.id)
+          @vote.save
+        end
+      elsif @bill.location == "US House" || @bill.location == "US Senate"
         connection = Faraday.new(
           url: "https://api.propublica.org/congress/v1",
           headers: {"X-API-Key" => ENV["PROPUBLICA_API_KEY"]}
@@ -110,6 +66,7 @@ class BillsController < ApplicationController
           end
         end
       end
+      redirect_to bills_url, notice: 'Bill was successfully created.'
     else
       render :new
     end
@@ -147,6 +104,6 @@ class BillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_params
-      params.require(:bill).permit(:number, :session, :summary, :endorsed, :location, :name)
+      params.require(:bill).permit(:number, :session, :summary, :endorsed, :location, :name, issue_ids:[])
     end
 end
