@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_213034) do
+ActiveRecord::Schema.define(version: 2021_02_18_033117) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 2021_02_02_213034) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "email_templates", force: :cascade do |t|
+    t.string "subject"
+    t.string "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "initiative_id"
+    t.string "name"
+    t.boolean "is_active"
+  end
+
   create_table "issues", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -89,7 +99,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_213034) do
 
   create_table "recipiants", force: :cascade do |t|
     t.integer "representative_id"
-    t.integer "template_id"
+    t.integer "email_template_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -107,16 +117,6 @@ ActiveRecord::Schema.define(version: 2021_02_02_213034) do
     t.string "url"
   end
 
-  create_table "templates", force: :cascade do |t|
-    t.string "subject"
-    t.string "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "initiative_id"
-    t.string "name"
-    t.boolean "is_active"
-  end
-
   create_table "votes", force: :cascade do |t|
     t.string "stance"
     t.integer "bill_id"
@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(version: 2021_02_02_213034) do
   add_foreign_key "contributions", "lobbyists"
   add_foreign_key "contributions", "representatives"
   add_foreign_key "offices", "representatives"
+  add_foreign_key "recipiants", "email_templates"
   add_foreign_key "recipiants", "representatives"
-  add_foreign_key "recipiants", "templates"
   add_foreign_key "votes", "bills"
   add_foreign_key "votes", "representatives"
 end

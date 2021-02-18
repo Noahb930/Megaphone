@@ -8,43 +8,24 @@
 <div class="card-body large">
   <form class="email-form" action="/emails" accept-charset="UTF-8" data-remote="true" method="post"><input type="hidden" name="authenticity_token" value="hci3UFrURxIt2ir9fdbv+ORqOg3M7NjpdDpcyK5qhGYljZI4VQA9u/2kz4EJoiv7WgNRYEHOWDp+snbsZxzNtQ==">
     <div class="field template-name-field">
-      <label for="template_name">Template</label>
-      <select id = "template_name">
+      <label>Template</label>
+      <select class = "template_name" onchange="autofill(<%=@representative.id%>)">
         <option value="-1">Select a Template</option>
-        <% @representative.templates.each do |template| %>
-          <option value="<%= template.id %>"><%= template.name %></option>
+        <% @representative.email_templates.each do |email_template| %>
+          <option value="<%= email_template.id %>"><%= email_template.name %></option>
         <% end %>
         <option value="-1">Blank</option>
       </select>
     </div>
     <div class="field draft-subject-field">
       <label for="draft_subject">Subject</label>
-      <input type="text" name="draft[subject]" id="draft_subject">
+      <input type="text" name="draft" class="draft_subject">
     </div>
 
     <div class="field draft-body-field">
-      <label for="draft_body">Body</label>
-      <textarea name="draft[body]" id="draft_body"></textarea>
+      <label>Body</label>
+      <textarea name="draft[body]" class="draft_body"></textarea>
     </div>
     <input type="submit" name="commit" value="Send" class="submit-button" data-disable-with="CREATE">
   </form>
 </div>
-<script>
-  let templates = {
-    <% @representative.templates.each do |template| %>
-      <%= template.id %>: {
-        subject: "<%= template.subject %>",
-        body: `<%= template.body %>`
-      },
-    <% end %>
-    "-1": {
-      subject: "",
-      body: ""
-    }
-  }
-  $("#template_name").on('change', function() {
-    id = this.value
-    $("#draft_subject").val(templates[id]["subject"])
-    $("#draft_body").val(templates[id]["body"])
-  });
-</script>

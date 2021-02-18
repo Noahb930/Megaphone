@@ -19,3 +19,22 @@
       </div>
   <% end %>
 </div>
+<script>
+  let email_templates = {
+    <% EmailTemplate.all.each do |email_template| %>
+      <%= email_template.id %>: {
+        subject: "<%= email_template.subject %>",
+        body: `<%= email_template.body %>`
+      },
+    <% end %>
+    "-1": {
+      subject: "",
+      body: ""
+    }
+  }
+  function autofill(representative_id){
+    email_template_id = $(`#rep-card-${representative_id} .template_name`).val()
+    $(`#rep-card-${representative_id} .draft_subject`).val(email_templates[email_template_id]["subject"])
+    $(`#rep-card-${representative_id} .draft_body`).val(email_templates[email_template_id]["body"])
+  };
+</script>

@@ -7,7 +7,7 @@ class Representative < ApplicationRecord
   has_many :contributions, dependent: :destroy
   has_many :lobbyists, through: :contributions
   has_many :recipiants, dependent: :destroy
-  has_many :templates, through: :recipiants
+  has_many :email_templates, through: :recipiants
   has_many :offices, dependent: :destroy
 
   validates :name, :profession, presence: true

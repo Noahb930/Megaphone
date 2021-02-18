@@ -62,5 +62,26 @@
         timeline.seek(timeline.duration * $(window).scrollTop() / ($("body").height() - $(window).height()))
       })
     });
+    let templates = {
+      <% Template.all.each do |template| %>
+        <%= template.id %>: {
+          subject: "<%= template.subject %>",
+          body: `<%= template.body %>`
+        },
+      <% end %>
+      "-1": {
+        subject: "",
+        body: ""
+      }
+    }
+    $(".template_name").on('change', function() {
+      $(this).parent().find(".draft_subject").val(templates[id]["subject"])
+      $(this).parent().find(".draft_body").val(templates[id]["body"])
+    });
+    function autofill(representative_id){
+      email_template_id = $(`#rep-card-${representative_id} .template_name`).val()
+      $(`#rep-card-${representative_id} .draft_subject`).val(email_templates[email_template_id]["subject"])
+      $(`#rep-card-${representative_id} .draft_body`).val(email_templates[email_template_id]["body"])
+    };
   </script>
 <% end %>

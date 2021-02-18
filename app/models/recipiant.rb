@@ -1,4 +1,4 @@
 class Recipiant < ApplicationRecord
   belongs_to :representative
-  belongs_to :template
+  belongs_to :email_template
 end

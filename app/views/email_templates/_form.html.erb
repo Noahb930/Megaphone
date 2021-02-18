@@ -1,9 +1,9 @@
-<% if @template.new_record? %>
+<% if @email_template.new_record? %>
   <h1> New Email Template </h1>
 <% else %>
   <h1> Email Template </h1>
 <% end %>
-<%= form_with(model: @template, remote: true, class: "template-form") do |form| %>
+<%= form_with(model: @email_template, remote: true, class: "template-form") do |form| %>
   <div class="field template-name-field">
     <%= form.label :name %>
     <%= form.text_field :name %>
