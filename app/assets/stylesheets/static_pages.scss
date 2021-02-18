@@ -5,6 +5,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 20px;
+  width: 400px;
+  margin: auto;
 }
 #address-field{
   grid-row: 1;

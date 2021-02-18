@@ -10,22 +10,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <nav class="navbar">
-      <ul class="nav-list">
-        <li class="nav-logo">
-          <a href="#">MEGAPHONE</a>
-        </li>
-        <li class = "nav-item">
-          <a href="#">HOME</a>
-        </li>
-        <li class = "nav-item">
-          <a href="#">ABOUT</a>
-        </li>
-        <li class = "nav-item">
-          <a href="#">FAQ</a>
-        </li>
-      </ul>
-    </nav>
+    <% if admin_signed_in? %>
+      <%= render :partial => 'layouts/admin_header' %>
+    <% else %>
+      <%= render :partial => 'layouts/header' %>
+    <% end %>
     <div class = "main">
       <header>
         <br>
@@ -34,7 +23,8 @@
       <%= yield %>
     </div>
     <footer id="footer">
-      <p></p>
+      <h1>MEGAPHONE</h1>
+      <p>Amplify Your Voice</p>
     </footer>
     <%= yield :page_scripts %>
   </body>

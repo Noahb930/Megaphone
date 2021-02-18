@@ -5,6 +5,9 @@
   grid-template-columns: 60px repeat(4, 1fr) 60px;
   grid-column-gap: 10px;
   grid-row-gap: 5px;
+  width:90%;
+  max-width: 1000px;
+  margin: auto;
 }
 .bill-location-field{
   grid-row: 1;

@@ -5,7 +5,7 @@
   <%= link_to 'Campaign Contributions', show_representative_path(:id => @representative.id, :partial => 'contributions'), :remote => true, class: "card-nav-link"%>
   <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link"%>
 </nav>
-<div class="card-body large">
+<div class="card-body">
   <%= form_with(model: @representative, remote: true, class:"rep-edit-form") do |form| %>
     <% if @representative.errors.any? %>
       <div id="error_explanation">
@@ -60,7 +60,7 @@
     <input type="hidden" id="index" name="index" value="<%=@index%>">
 
     <div class="rep-submit-field">
-      <%= submit_tag("Update", class:"wide-button") %>
+      <%= submit_tag("Update", class:"submit-button") %>
     </div>
   <% end %>
 </div>

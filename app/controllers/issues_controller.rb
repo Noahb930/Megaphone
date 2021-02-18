@@ -15,6 +15,7 @@ class IssuesController < ApplicationController
 
   # GET /issues/new
   def new
+    @issue = Issue.new
   end
 
   # GET /issues/1/edit

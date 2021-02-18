@@ -8,42 +8,8 @@ class RepresentativesController < ApplicationController
   # GET /representatives
   # GET /representatives.json
   def index
-    @representatives = Representative.all
-  end
-
-  def us_senate_index
-    @representatives = Representative.where(:profession => "US Senator")
-    respond_to do |format|
-      format.html {render :index}
-    end
-  end
-
-  def us_house_index
-    @representatives = Representative.where(:profession => "US House Member")
-    respond_to do |format|
-      format.html {render :index}
-    end
-  end
-
-  def ny_senate_index
-    @representatives = Representative.where(:profession => "NY State Senator")
-    respond_to do |format|
-      format.html {render :index}
-    end
-  end
-
-  def ny_assembly_index
-    @representatives = Representative.where(:profession => "NY State Assembly Member")
-    respond_to do |format|
-      format.html {render :index}
-    end
-  end
-
-  def nyc_council_index
-    @representatives = Representative.where(:profession => "NYC City Council Member")
-    respond_to do |format|
-      format.html {render :index}
-    end
+    @representatives = Representative.where(:profession => params[:profession]).order("district ASC")
+    p params[:profession]
   end
 
   def show
@@ -56,7 +22,6 @@ class RepresentativesController < ApplicationController
 
   def contributions
     @representative = Representative.find(params[:id])
-
     respond_to do |format|
       format.js
     end
@@ -97,8 +62,8 @@ class RepresentativesController < ApplicationController
   def update
     respond_to do |format|
       if @representative.update(representative_params)
-
-        format.js {render :admin_overview}
+        @partial = "overview"
+        format.js {render :show}
       else
         format.html { render :edit }
         format.json { render json: @representative.errors, status: :unprocessable_entity }

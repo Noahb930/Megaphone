@@ -1,7 +1,6 @@
-<% content_for :title, @representatives.first.profession+"S" %>
+<h1> <%= @representatives.first.profession %>s </h1>
 <div class="rep-wrapper">
   <% @representatives.each do |representative| %>
-    <div class="rep-container">
       <header class="rep-header">
         <span>
           <%= representative.profession %>
@@ -15,9 +14,8 @@
           </span>
         <% end %>
       </header>
-      <div class="outer-card" id="rep-card-<%=representative.id%>">
+      <div class="card" id="rep-card-<%=representative.id%>">
         <%= render :partial => 'overview', :locals => {:@representative => representative} %>
       </div>
-    </div>
   <% end %>
 </div>

@@ -67,9 +67,11 @@ class BeliefsController < ApplicationController
   # DELETE /beliefs/1
   # DELETE /beliefs/1.json
   def destroy
+    @representative=Representative.find(@belief.representative_id)
+    @partial = "beliefs"
     @belief.destroy
     respond_to do |format|
-      format.html { redirect_to beliefs_url, notice: 'belief was successfully destroyed.' }
+      format.js {render 'representatives/show'}
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,40 @@
+<nav class="navbar">
+  <ul class="nav-list">
+    <li class = "nav-item">
+      <ul class="dropdown">
+        <li class="dropdown-item">
+          <%= link_to 'Representatives', representatives_url %>
+        </li>
+        <li class="dropdown-item">
+          <%= link_to "US Senate", representatives_url(:profession => "US Senator") %>
+        </li>
+        <li class="dropdown-item">
+          <%= link_to "US House", representatives_url(:profession => "US House Member") %>
+        </li>
+        <li class="dropdown-item">
+          <%= link_to "NY State Senate", representatives_url(:profession => "NY State Senator") %>
+        </li>
+        <li class="dropdown-item">
+          <%= link_to 'NY State Assembly', representatives_url(:profession => "NY State Assembly Member") %>
+        </li>
+      </ul>
+    </li>
+    <li class = "nav-item">
+      <%= link_to 'Issues', issues_url %>
+    </li>
+    <li class = "nav-item">
+      <%= link_to 'Bills', bills_url %>
+    </li>
+    <li class = "nav-item">
+      <%= link_to 'Lobbyists', lobbyists_url %>
+    </li>
+    <li class = "nav-item">
+      <%= link_to 'Email Templates', templates_url %>
+    </li>
+  </ul>
+  <ul class="nav-list">
+    <li class="nav-item right">
+      <%= link_to 'Sign out', destroy_admin_session_path, :method => :delete %>
+    </li>
+  </ul>
+</nav>

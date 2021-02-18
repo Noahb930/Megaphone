@@ -14,6 +14,7 @@
           <% if admin_signed_in? %>
             <div class="action-icons">
               <%= link_to '', edit_belief_path(:id => belief.id), class: "fa fa-pencil edit-icon", remote: true %>
+              <%= link_to '', belief, method: :delete, data: { confirm: 'Are you sure?'}, class: "fa fa-trash edit-icon", remote: true%>
             </div>
           <% end %>
           <%= Issue.find(belief.issue_id).name %>

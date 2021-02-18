@@ -1,3 +1,8 @@
+<% if @issue.new_record? %>
+  <h1> New Issue </h1>
+<% else %>
+  <h1> Update Issue </h1>
+<% end %>
 <%= form_with(model: @issue, remote: true, class: "issue-form") do |form| %>
   <% if @issue.errors.any? %>
     <div id="error_explanation">
@@ -20,6 +25,6 @@
   </div>
   <input type="hidden" id="index" name="index" value="<%=@index%>">
   <div class="actions">
-    <%= form.submit "UPDATE", class: "submit-button" %>
+    <%= form.submit class: "submit-button" %>
   </div>
 <% end %>

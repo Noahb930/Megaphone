@@ -1,7 +1,12 @@
+<% if @bill.new_record? %>
+  <h1> New Bill </h1>
+<% else %>
+  <h1> Update Bill </h1>
+<% end %>
 <%= form_with(model: @bill, local: true, class:"bill-form") do |form| %>
   <div class="field bill-location-field">
     <%= form.label :location %>
-    <%= form.select :location, options_for_select(["Select A Location","US Senate","US House","NY State Senate","NY State Assembly","NYC City Council"], :selected => @bill.location) %>
+    <%= form.select :location, options_for_select(["Select A Location","US Senate","US House","NY State Senate","NY State Assembly"], :selected => @bill.location) %>
     <% if @bill.errors[:location].any? %>
       <span class="error"> <%= @bill.errors.full_messages_for(:location).to_sentence %> </span>
     <% end %>
@@ -41,9 +46,9 @@
   <div class="field bill-issue-field">
     <label>Relevant Issues</label>
     <div class="issue-tag-wrapper">
-      <% Issue.all.each_with_index do |issue, i| %>
-        <label class="issue-tag" for="issue-<%=i%>"><%=issue.name%></label>
-        <input type="checkbox" name="issue_ids[]" value="<%=issue.id%>" id="issue-<%=i%>" class="hidden">
+      <%= form.collection_check_boxes :issue_ids, Issue.all, :id, :name do |b| %>
+        <%= b.label class:"issue-tag"%>
+        <%= b.check_box class:"hidden"%>
       <% end %>
     </div>
   </div>

@@ -14,6 +14,7 @@ class TemplatesController < ApplicationController
 
   # GET /templates/new
   def new
+    @template = Template.new
   end
 
   # GET /templates/1/edit
@@ -26,7 +27,7 @@ class TemplatesController < ApplicationController
     @template = Template.new(template_params)
     respond_to do |format|
       if @template.save
-        format.html { render Initiative.find(template_params[:representative_id])}
+        format.html { redirect_to templates_url, notice: 'Email Template was successfully created.' }
         # format.html { redirect_to @template, notice: 'template was successfully created.' }
         # format.json { render :show, status: :created, location: @template }
       else
