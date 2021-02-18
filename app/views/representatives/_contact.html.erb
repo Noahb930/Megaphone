@@ -6,7 +6,7 @@
   <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link active"%>
 </nav>
 <div class="card-body large">
-  <form class="email-form" action="/emails" accept-charset="UTF-8" data-remote="true" method="post"><input type="hidden" name="authenticity_token" value="hci3UFrURxIt2ir9fdbv+ORqOg3M7NjpdDpcyK5qhGYljZI4VQA9u/2kz4EJoiv7WgNRYEHOWDp+snbsZxzNtQ==">
+  <form class="email-form" action="/representatives/<%=@representative.id%>/contact" accept-charset="UTF-8" data-remote="true" method="post">
     <div class="field template-name-field">
       <label>Template</label>
       <select class = "template_name" onchange="autofill(<%=@representative.id%>)">
@@ -19,12 +19,11 @@
     </div>
     <div class="field draft-subject-field">
       <label for="draft_subject">Subject</label>
-      <input type="text" name="draft" class="draft_subject">
+      <input type="text" name="subject" class="draft_subject">
     </div>
-
     <div class="field draft-body-field">
       <label>Body</label>
-      <textarea name="draft[body]" class="draft_body"></textarea>
+      <textarea name="body" class="draft_body"></textarea>
     </div>
     <input type="submit" name="commit" value="Send" class="submit-button" data-disable-with="CREATE">
   </form>

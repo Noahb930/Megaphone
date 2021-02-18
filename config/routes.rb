@@ -11,9 +11,5 @@ Rails.application.routes.draw do
   get '/admins' => 'admins#portal'
   post '/', to: 'representatives#find'
   get '/representatives/:id/:partial' => 'representatives#show', :as => 'show_representative'
-  get '/representatives/us-senate', to: 'representatives#us_senate_index'
-  get '/representatives/us-house', to: 'representatives#us_house_index'
-  get '/representatives/ny-senate', to: 'representatives#ny_senate_index'
-  get '/representatives/ny-assembly', to: 'representatives#ny_assembly_index'
-  get '/representatives/nyc-council', to: 'representatives#nyc_council_index'
-  end
+  post '/representatives/:id/contact', to: 'representatives#contact'
+end

@@ -1,7 +1,7 @@
 <div class="card-header">
   <span class="email-template-name"><%= @email_template.name %></span>
   <div class="action-icons">
-    <%= link_to '', edit_template_path(:id => @email_template.id), class: "fa fa-pencil edit-icon"%>
+    <%= link_to '', edit_email_template_path(:id => @email_template.id), class: "fa fa-pencil edit-icon"%>
     <%= link_to '', @email_template, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash edit-icon"%>
   </div>
 </div>

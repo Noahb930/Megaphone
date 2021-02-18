@@ -3,7 +3,7 @@ require 'dotenv'
 require 'open-uri'
 Dotenv.load
 class RepresentativesController < ApplicationController
-  before_action :set_representative, only: [:show, :edit, :update, :destroy]
+  before_action :set_representative, only: [:show, :edit, :update, :destroy, :contact]
   before_action :authenticate_admin!, except: [:find, :show]
   # GET /representatives
   # GET /representatives.json
@@ -15,13 +15,6 @@ class RepresentativesController < ApplicationController
   def show
     @representative = Representative.find(params[:id])
     @partial = params[:partial]
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def contributions
-    @representative = Representative.find(params[:id])
     respond_to do |format|
       format.js
     end
@@ -53,8 +46,6 @@ class RepresentativesController < ApplicationController
         format.json { render json: @representative.errors, status: :unprocessable_entity }
       end
     end
-
-
   end
 
   # PATCH/PUT /representatives/1
@@ -133,6 +124,12 @@ class RepresentativesController < ApplicationController
         end
       end
       @reps += Representative.where(profession:"US Senator")
+    end
+  end
+
+  def contact
+    if @representative.profession == "NY State Senator" || @representative.profession == "NY State Assembly Member"
+      RepresentativeMailer.contact_email(@representative,params[:subject],params[:body]).deliver_now
     end
   end
 
