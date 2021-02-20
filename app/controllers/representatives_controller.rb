@@ -4,7 +4,10 @@ require 'open-uri'
 Dotenv.load
 class RepresentativesController < ApplicationController
   before_action :set_representative, only: [:show, :edit, :update, :destroy, :contact]
-  before_action :authenticate_admin!, except: [:find, :show]
+  before_action :authenticate_admin!, except: [:find, :show, :location_specific]
+
+  def find
+  end
   # GET /representatives
   # GET /representatives.json
   def index
@@ -72,7 +75,7 @@ class RepresentativesController < ApplicationController
     end
   end
 
-  def find
+  def location_specific
     @reps = []
     results = Geocoder.search([params[:address], params[:city],params[:zipcode]].join(" "))
     if results.empty?

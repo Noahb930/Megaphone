@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href='https://fonts.googleapis.com/css?family=Fredoka One' rel='stylesheet'>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
@@ -23,8 +24,22 @@
       <%= yield %>
     </div>
     <footer id="footer">
-      <h1>MEGAPHONE</h1>
-      <p>Amplify Your Voice</p>
+      <ul id="footer_links">
+        <li class="footer_link">
+          <a href="/about">About Megaphone</a>
+        </li>
+        <li class="footer_link">
+          <a href="/implement">Implement Megaphone</a>
+        </li>
+        <li class="footer_link">
+          <a href="/faq">FAQ</a>
+        </li>
+        <li class="footer_link">
+          <a href="/feedback">Give Feedback</a>
+        </li>
+      </ul>
+      <%= image_tag "megaphone.png", class:"logo" %>
+
     </footer>
     <%= yield :page_scripts %>
   </body>

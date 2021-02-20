@@ -17,7 +17,7 @@
 html{
  width: 100%;
  height: 100%;
- background-color: #fff;
+ background-color: #888;
  z-index: -3;
 }
 body{
@@ -28,7 +28,6 @@ body{
  bottom: 0;
  position: relative;
  padding-bottom: 150px;
- min-height: 100vh;
  z-index: -2;
 }
 .navbar{
@@ -115,12 +114,33 @@ footer{
   background-color: #fff;
   width:100%;
   text-align: center;
-  height: 100px;
-  padding: auto;
+  height: 130px;
+  padding-top:5px;
   line-height: 100px;
   box-shadow: 10px 0px 0px 0px rgba(0, 0, 0, 0.25), 0px 6px 20px 0px rgba(0, 0, 0, 0.25);
   bottom: 0;
   position: fixed;
+}
+.logo{
+  height:100px;
+  width:auto;
+}
+#footer_links{
+  list-style-type: none;
+  height:25px;
+  line-height: 25px;
+}
+.footer_link{
+  height:100%;
+  margin-right: 0px;
+  display: inline;
+  color: #888;
+  font-weight: bold;
+  font-family: 'Fredoka One';
+}
+.footer_link:not(:first-child)::before{
+  content: "|";
+  margin: 10px;
 }
 /* Font Styling */
 *{
