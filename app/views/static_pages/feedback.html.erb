@@ -1,0 +1,20 @@
+<% content_for :title, "Give Feedback" %>
+<%= form_tag '/feedback', id:"feedback-form" do %>
+  <div class="field feedback-first-name-field">
+    <label>First Name</label>
+    <input type="text" name="first_name">
+  </div>
+  <div class="field draft-last-field">
+    <label>Last Name</label>
+    <input type="text" name="last_name">
+  </div>
+  <div class="field feedback-email-field">
+    <label>Email</label>
+    <input type="text" name="email">
+  </div>
+  <div class="field feedback-message-field">
+    <label>Message</label>
+    <textarea name="message"></textarea>
+  </div>
+  <input type="submit" name="commit" value="Send" class="feedback-submit-button submit-button" data-disable-with="CREATE">
+<% end %>

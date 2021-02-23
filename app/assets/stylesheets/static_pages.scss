@@ -25,3 +25,25 @@
   grid-column: 1 / 3;
   margin-top: 10px;
 }
+
+
+//Feedback Page Styling
+
+#feedback-form{
+  width: 800px;
+  max-width: 90%;
+  margin: auto;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+}
+.feedback-first-name-field{
+  grid-column: 1 / 2;
+}
+.feedback-last-name-field{
+  grid-column: 2 / 3;
+}
+.feedback-email-field, .feedback-message-field, .feedback-submit-button{
+  grid-column: 1 / 3;
+}

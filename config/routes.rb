@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/implement' => 'static_pages#implement'
   get '/faq' => 'static_pages#faq'
   get '/feedback' => 'static_pages#feedback'
+  post '/feedback', to: 'static_pages#email'
   get '/admins' => 'admins#portal'
   post '/', to: 'representatives#location_specific'
   get '/representatives/:id/:partial' => 'representatives#show', :as => 'show_representative'
