@@ -12,5 +12,9 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.10.3"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Noahb930/megaphone.git",
+  "author": "Noah Getz <noahb930@gmail.com>",
+  "license": "MIT"
 }
