@@ -1,0 +1,58 @@
+<% content_for :title, "Frequently Asked Questions" %>
+<div class="faq-wrapper">
+  <div class="faq-container">
+    <div class="faq-question">
+      <%= fa_icon "angle-down", :class => "carrot" %>
+    </div>
+    <div class="faq-answer">
+    </div>
+  </div>
+  <div class="faq-container">
+    <div class="faq-question">
+      <%= fa_icon "angle-down", :class => "carrot" %>
+    </div>
+    <div class="faq-answer">
+    </div>
+  </div>
+  <div class="faq-container">
+    <div class="faq-question">
+      <%= fa_icon "angle-down", :class => "carrot" %>
+    </div>
+    <div class="faq-answer">
+    </div>
+  </div>
+  <div class="faq-container">
+    <div class="faq-question">
+      <%= fa_icon "angle-down", :class => "carrot" %>
+    </div>
+    <div class="faq-answer">
+    </div>
+  </div>
+  <div class="faq-container">
+    <div class="faq-question">
+      <%= fa_icon "angle-down", :class => "carrot" %>
+    </div>
+    <div class="faq-answer">
+    </div>
+  </div>
+  <div class="faq-container">
+    <div class="faq-question">
+      <%= fa_icon "angle-down", :class => "carrot" %>
+    </div>
+    <div class="faq-answer">
+    </div>
+  </div>
+  <div class="faq-container">
+    <div class="faq-question">
+      <%= fa_icon "angle-down", :class => "carrot" %>
+    </div>
+    <div class="faq-answer">
+    </div>
+  </div>
+</div>
+<script>
+  $(".carrot").on('click', function() {
+    $(this).parent().parent().toggleClass('expanded')
+    $(this).toggleClass('fa-angle-down fa-angle-up')
+  });
+</script>
