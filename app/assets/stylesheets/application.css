@@ -12,7 +12,6 @@
  *
  *= require_tree .
  *= require_self
- *= require font-awesome
  */
  *{
    font-family: "Raleway", Helvetica, sans-serif;
@@ -139,16 +138,14 @@ footer{
   margin-right: 0px;
   display: inline;
   color: #888;
-  font-weight: bold;
-  font-family: 'Fredoka One';
-}
-.footer_link a{
-  font-family: 'Fredoka One';
-  letter-spacing: 1px;
+  font-family: "Futura";
+  font-weight:500;
+
 }
 .footer_link:not(:first-child)::before{
   content: "|";
   margin: 10px;
+  font-weight: normal;
 }
 /* Font Styling */
 

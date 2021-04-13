@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_18_033117) do
+ActiveRecord::Schema.define(version: 2021_04_13_203759) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -52,12 +52,21 @@ ActiveRecord::Schema.define(version: 2021_02_18_033117) do
     t.string "location"
   end
 
+  create_table "committees", force: :cascade do |t|
+    t.string "name"
+    t.integer "filer_id"
+    t.integer "representative_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "contributions", force: :cascade do |t|
     t.integer "amount"
     t.integer "lobbyist_id"
     t.integer "representative_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "date"
   end
 
   create_table "email_templates", force: :cascade do |t|
@@ -82,6 +91,7 @@ ActiveRecord::Schema.define(version: 2021_02_18_033117) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "filer_id"
   end
 
   create_table "offices", force: :cascade do |t|
@@ -129,6 +139,7 @@ ActiveRecord::Schema.define(version: 2021_02_18_033117) do
   add_foreign_key "beliefs", "representatives"
   add_foreign_key "bill_issues", "bills"
   add_foreign_key "bill_issues", "issues"
+  add_foreign_key "committees", "representatives"
   add_foreign_key "contributions", "lobbyists"
   add_foreign_key "contributions", "representatives"
   add_foreign_key "offices", "representatives"

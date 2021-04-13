@@ -48,12 +48,19 @@
           +Integer id
           +String name
           +String description
+          +Integer filer_id
         }
         class Contribution{
           +Integer id
           +Integer amount
           +Integer lobbyist_id
           +Integer representative_id
+          +Date date
+        }
+        class Committee{
+          +Integer id
+          +String name
+          +Integer filer_id
         }
         class Template{
           +Integer id
@@ -88,6 +95,8 @@
         Representative "1" --> "*" Contribution
         Representative "1" --> "*" Recipiant
         Representative "1" --> "*" Office
+        Representative "1" --> "*" Committee
+
 
         Bill "1" --> "*" Vote
         Bill "1" --> "*" BillIssue

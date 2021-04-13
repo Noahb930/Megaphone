@@ -9,6 +9,7 @@ class Representative < ApplicationRecord
   has_many :recipiants, dependent: :destroy
   has_many :email_templates, through: :recipiants
   has_many :offices, dependent: :destroy
+  has_many :committees, dependent: :destroy
 
   validates :name, :profession, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, :allow_blank => true

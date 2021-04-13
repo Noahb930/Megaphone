@@ -1,27 +1,26 @@
-<%= form_with(model: lobbyist, local: true) do |form| %>
-  <% if lobbyist.errors.any? %>
+<%= form_with(model: @lobbyist, remote: true, class: "lobbyists-form") do |form| %>
+  <% if @lobbyist.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(lobbyist.errors.count, "error") %> prohibited this lobbyist from being saved:</h2>
+      <h2><%= pluralize(@lobbyist.errors.count, "error") %> prohibited this lobbyist from being saved:</h2>
 
       <ul>
-        <% lobbyist.errors.full_messages.each do |message| %>
+        <% @lobbyist.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+  <div class="field" id="lobbyist-name-field">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
-
-  <div class="field">
+  <div class="field" id="lobbyist-filer-id-field">
+    <%= form.label :filer_id %>
+    <%= form.text_field :filer_id %>
+  </div>
+  <div class="field" id="lobbyist-description-field">
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.text_area:description %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.submit class: "submit-button", id: "lobbyist-submit-button" %>
 <% end %>

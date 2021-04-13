@@ -1,0 +1,10 @@
+<div class = "card-header">
+  <%= @lobbyist.name %>
+  <div class="action-icons">
+    <%= link_to '', edit_lobbyist_path(:id => @lobbyist.id), class: "fa fa-pencil-alt edit-icon"%>
+    <%= link_to '', @lobbyist, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash edit-icon"%>
+  </div>
+</div>
+<div class= "card-body">
+  <p><%= @lobbyist.description %></p>
+</div>

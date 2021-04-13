@@ -1,3 +1,6 @@
+require 'watir'
+require 'nokogiri'
+
 class LobbyistsController < ApplicationController
   before_action :set_lobbyist, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin!
@@ -29,6 +32,57 @@ class LobbyistsController < ApplicationController
 
     respond_to do |format|
       if @lobbyist.save
+        browser = Watir::Browser.new :chrome, headless: true 
+        browser.goto("https://publicreporting.elections.ny.gov/CandidateCommitteeDisclosure/CandidateCommitteeDisclosure")
+        cookie = browser.cookies.to_a.map {|cookie| "#{cookie[:name]}=#{cookie[:value]}"}.join("\; ")
+        connection = Faraday.new(
+          url: "https://publicreporting.elections.ny.gov/",
+          headers: {
+            "datatype" => "json",
+            "content-type" => "application/json",
+            "cookie" => cookie,
+            "Connection": "keep-alive"
+          }
+        )
+        response = connection.post(
+          "CandidateCommitteeDisclosure/GetFilingInventoryData/",
+          {"strFilerId":@lobbyist.filer_id,"officeType":10,"searchby":"FILER"}.to_json
+        )
+        if response.status == 200
+          filings = []
+          while filings == []
+            response = connection.get(
+              "CandidateCommitteeDisclosure/CandidateCommitteeDisclosure"
+            )
+            html = Nokogiri::HTML(response.body)
+            filings = html.css(".lnkFilingInventory").map {|link| 
+              {
+                "filing_ID": link['id'].split('-')[1],
+                "submit_Date": link.text.strip.split(" ")[1..-1].join(" ")
+              }
+            }
+          end
+          filings.each do |filing|
+            response = connection.post(
+              "CandidateCommitteeDisclosure/GetSearchCandidateCommitteeData/",filing.to_json
+            )
+            if response.status == 200
+              JSON.parse(response.body)["aaData"].each do |row|
+                if row[2] == "F - Expenditures/ Payments"
+                  committee = Committee.where(name:row[4])[0]
+                  if committee
+                    contribution = Contribution.new(
+                      :amount => row[8].gsub(/[$,]/,'').to_i,
+                      :date => Date.strptime(row[3], "%m/%d/%Y"),
+                      :representative_id => committee.representative_id,
+                      :lobbyist_id => @lobbyist.id)
+                    contribution.save
+                  end                
+                end
+              end
+            end
+          end
+        end
         format.html { redirect_to @lobbyist, notice: 'Lobbyist was successfully created.' }
         format.json { render :show, status: :created, location: @lobbyist }
       else
@@ -70,6 +124,6 @@ class LobbyistsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lobbyist_params
-      params.require(:lobbyist).permit(:name, :description)
+      params.require(:lobbyist).permit(:name, :description, :filer_id)
     end
 end

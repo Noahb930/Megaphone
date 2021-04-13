@@ -1,7 +1,7 @@
 <div class = "card-header">
   <%= @issue.name %>
   <div class="action-icons">
-    <%= link_to '', edit_issue_path(:id => @issue.id), class: "fa fa-pencil edit-icon"%>
+    <%= link_to '', edit_issue_path(:id => @issue.id), class: "fa fa-pencil-alt edit-icon"%>
     <%= link_to '', @issue, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-trash edit-icon"%>
   </div>
 </div>

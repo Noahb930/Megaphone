@@ -6,7 +6,7 @@
   <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link"%>
   <% if admin_signed_in? %>
     <div class="action-icons">
-      <%= link_to '', edit_representative_path(:id => @representative.id), class: "fa fa-pencil", remote: true %>
+      <%= link_to '', edit_representative_path(:id => @representative.id), class: "fa fa-pencil-alt", remote: true %>
     </div>
   <% end %>
 </nav>

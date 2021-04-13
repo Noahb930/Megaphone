@@ -202,6 +202,9 @@ GEM
       thread_safe (~> 0.1)
     warden (1.2.9)
       rack (>= 2.0.9)
+    watir (6.19.1)
+      regexp_parser (>= 1.2, < 3)
+      selenium-webdriver (>= 3.142.7)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -247,6 +250,7 @@ DEPENDENCIES
   sqlite3 (~> 1.4)
   turbolinks (~> 5)
   tzinfo-data
+  watir
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
