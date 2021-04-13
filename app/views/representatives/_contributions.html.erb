@@ -6,4 +6,17 @@
   <%= link_to 'Contact', show_representative_path(:id => @representative.id, :partial => 'contact'), :remote => true, class: "card-nav-link"%>
 </nav>
 <div class="card-body scrollable">
+  <div class="card-wrapper">
+    <% @representative.contributions.each do |contribution| %>
+      <% lobbyist = contribution.lobbyist %>
+      <div class="card">
+        <div class="card-header">
+          Recieved $<%=contribution.amount%> from <%=lobbyist.name%> on <%= contribution.date %>
+        </div>
+        <div class="card-body">
+          <p><%= lobbyist.description %><p>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
