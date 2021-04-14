@@ -1,9 +1,11 @@
 <% content_for :title, "BILLS" %>
-<% @bills.each do |bill| %>
-  <div class="card" id="bill-card-<%=bill.id%>">
-    <%= render :partial => 'show', :locals => {:@bill =>  bill} %>
+<div class="card-wrapper">
+  <% @bills.each do |bill| %>
+    <div class="card" id="bill-card-<%=bill.id%>">
+      <%= render :partial => 'show', :locals => {:@bill =>  bill} %>
+    </div>
+  <% end %>
+  <div class="card" id="new-bill-card">
+    <%= link_to 'New Bill', new_bill_path(), class: "submit-button" %>
   </div>
-<% end %>
-<div class="card" id="new-bill-card">
-  <%= link_to 'New Bill', new_bill_path(), class: "submit-button" %>
 </div>

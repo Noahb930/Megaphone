@@ -1,9 +1,11 @@
 <% content_for :title, "Lobbyists" %>
-<% @lobbyists.each do |lobbyist| %>
-  <div class="card" id="lobbyist-card-<%=lobbyist.id%>">
-    <%= render :partial => 'show', :locals => {:@lobbyist =>  lobbyist} %>
+<div class="card-wrapper">
+  <% @lobbyists.each do |lobbyist| %>
+    <div class="card" id="lobbyist-card-<%=lobbyist.id%>">
+      <%= render :partial => 'show', :locals => {:@lobbyist =>  lobbyist} %>
+    </div>
+  <% end %>
+  <div class="card" id="new-lobbyist-card">
+    <%= link_to 'New Lobbyist', new_lobbyist_path, class: "submit-button"%>
   </div>
-<% end %>
-<div class="card" id="new-lobbyist-card">
-  <%= link_to 'New Lobbyist', new_lobbyist_path, class: "submit-button"%>
 </div>
