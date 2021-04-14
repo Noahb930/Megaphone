@@ -1,10 +1,12 @@
 
 <% content_for :title, "ISSUES" %>
-<% @issues.each do |issue| %>
-  <div class="card" id="issue-card-<%=issue.id%>">
-    <%= render :partial => 'show', :locals => {:@issue =>  issue} %>
+<div class="card-wrapper">
+  <% @issues.each do |issue| %>
+    <div class="card" id="issue-card-<%=issue.id%>">
+      <%= render :partial => 'show', :locals => {:@issue =>  issue} %>
+    </div>
+  <% end %>
+  <div class="card" id="new-issue-card">
+    <%= link_to 'New Issue', new_issue_path, class: "submit-button"%>
   </div>
-<% end %>
-<div class="card" id="new-issue-card">
-  <%= link_to 'New Issue', new_issue_path, class: "submit-button"%>
 </div>

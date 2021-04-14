@@ -24,7 +24,7 @@ class EmailTemplatesController < ApplicationController
   # POST /templates
   # POST /templates.json
   def create
-    @email_template = EmailTemplate.new(template_params)
+    @email_template = EmailTemplate.new(email_template_params)
     respond_to do |format|
       if @email_template.save
         format.html { redirect_to email_templates_url, notice: 'Email Template was successfully created.' }

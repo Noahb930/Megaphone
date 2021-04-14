@@ -83,7 +83,7 @@ class LobbyistsController < ApplicationController
             end
           end
         end
-        format.html { redirect_to @lobbyist, notice: 'Lobbyist was successfully created.' }
+        format.html { redirect_to lobbyists_url, notice: 'Lobbyist was successfully created.' }
         format.json { render :show, status: :created, location: @lobbyist }
       else
         format.html { render :new }
@@ -97,8 +97,7 @@ class LobbyistsController < ApplicationController
   def update
     respond_to do |format|
       if @lobbyist.update(lobbyist_params)
-        format.html { redirect_to @lobbyist, notice: 'Lobbyist was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lobbyist }
+        format.html { redirect_to lobbyists_url}
       else
         format.html { render :edit }
         format.json { render json: @lobbyist.errors, status: :unprocessable_entity }

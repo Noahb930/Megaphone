@@ -22,9 +22,6 @@ namespace :fetch_committees do
         name.gsub!(/ I{2,}/,'')
         name.gsub!(/ Jr\.?/,'')
         name.gsub!(/ Sr\.?/,'')
-        
-        p name
-
         response = connection.post(
             "CandidateCommitteeDisclosure/AutoCompleteFIDASCandidate",
             {"term":rep.name,"officeType":10,"searchby":"Candidate","status":"All","county":"","municipality":""}.to_json
@@ -53,6 +50,8 @@ namespace :fetch_committees do
                 obj = Committee.new("filer_id":filer_id,"name":name,"representative_id":rep.id)
                 obj.save
             end
+          else
+            p "Candidate not found for "+name
           end
         end
       end
