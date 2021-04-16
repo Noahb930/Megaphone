@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_203759) do
+ActiveRecord::Schema.define(version: 2021_04_15_212131) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,8 +29,8 @@ ActiveRecord::Schema.define(version: 2021_04_13_203759) do
 
   create_table "beliefs", force: :cascade do |t|
     t.string "description"
-    t.string "representative_id"
-    t.string "issue_id"
+    t.integer "representative_id"
+    t.integer "issue_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -74,7 +77,6 @@ ActiveRecord::Schema.define(version: 2021_04_13_203759) do
     t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "initiative_id"
     t.string "name"
     t.boolean "is_active"
   end
@@ -92,6 +94,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_203759) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "filer_id"
+    t.string "fec_committee_ids", array: true
   end
 
   create_table "offices", force: :cascade do |t|
@@ -125,6 +128,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_203759) do
     t.string "img"
     t.string "profession"
     t.string "url"
+    t.string "fec_id"
   end
 
   create_table "votes", force: :cascade do |t|
