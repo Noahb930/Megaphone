@@ -70,26 +70,26 @@ namespace :fetch_representatives do
   end
 
   task us_senate: :environment do
-    connection = Faraday.new(
-      url: "https://api.propublica.org/congress/v1",
-      headers: {"X-API-Key" => ENV["PROPUBLICA_API_KEY"]}
-    )
-    res = connection.get("members/senate/NY/current.json")
-    JSON.parse(res.body)["results"].each do |rep|
-      representative = Representative.new(name: rep["name"], party: "(#{rep["party"]})", district: nil, profession: "US Senator", img: "https://theunitedstates.io/images/congress/original/#{rep["id"]}.jpg", rating:"?")
-      representative.save!
+    res = Faraday.get "https://api.propublica.org/congress/v1/117/senate/members.json" do |req|
+      req.headers["X-API-Key"] = ENV["PROPUBLICA_API_KEY"]
+    end
+    JSON.parse(res.body)["results"][0]["members"].each do |rep|
+      if rep["state"] == "NY"
+        representative = Representative.new(name: [rep["first_name"],rep["last_name"]].join(" "), party: "(#{rep["party"]})", district: nil, profession: "US Senator", img: "https://theunitedstates.io/images/congress/original/#{rep["id"]}.jpg", fec_id: rep["fec_candidate_id"], rating:"?")
+        representative.save!
+      end
     end
   end
 
   task us_house: :environment do
-    connection = Faraday.new(
-      url: "https://api.propublica.org/congress/v1",
-      headers: {"X-API-Key" => ENV["PROPUBLICA_API_KEY"]}
-    )
-    res = connection.get("members/house/NY/current.json")
-    JSON.parse(res.body)["results"].each do |rep|
-      representative = Representative.new(name: rep["name"], party: "(#{rep["party"]})", district: "District #{rep["district"]}", profession: "US House Member", img: "https://theunitedstates.io/images/congress/original/#{rep["id"]}.jpg", rating:"?")
-      representative.save!
+    res = Faraday.get "https://api.propublica.org/congress/v1/117/house/members.json" do |req|
+      req.headers["X-API-Key"] = ENV["PROPUBLICA_API_KEY"]
+    end
+    JSON.parse(res.body)["results"][0]["members"].each do |rep|
+      if rep["state"] == "NY"
+        representative = Representative.new(name: [rep["first_name"],rep["last_name"]].join(" "), party: "(#{rep["party"]})", district: "District #{rep["district"]}", profession: "US House Member", img: "https://theunitedstates.io/images/congress/original/#{rep["id"]}.jpg", fec_id: rep["fec_candidate_id"], rating:"?")
+        representative.save!
+      end
     end
   end
 end

@@ -14,10 +14,14 @@
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
-  <div class="field" id="lobbyist-filer-id-field">
-    <%= form.label :filer_id %>
-    <%= form.text_field :filer_id %>
+  <div class="field" id="lobbyist-fec-committee-id-fields">
+    <%= form.label :fec_committee_ids %>
+    <%= form.text_field :fec_committee_ids %>
   </div>
+  <div class="field" id="lobbyist-nysboe-committee-id-fields">
+  <%= form.label :nysboe_committee_ids %>
+  <%= form.text_field :nysboe_committee_ids %>
+</div>
   <div class="field" id="lobbyist-description-field">
     <%= form.label :description %>
     <%= form.text_area:description %>
