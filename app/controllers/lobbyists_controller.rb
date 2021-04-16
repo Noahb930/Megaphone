@@ -53,7 +53,7 @@ class LobbyistsController < ApplicationController
                 body["results"].each do |entry|
                   unless entry["recipient_committee"].nil?
                     representative = Representative.where(fec_id:entry["recipient_committee"]["candidate_ids"][0]).first
-                    unless representative.nil?
+                    unless representative.nil? || entry["disbursement_amount"] < 0
                       contribution = Contribution.new(
                         :amount => entry["disbursement_amount"],
                         :date => Date.parse(entry["disbursement_date"]),

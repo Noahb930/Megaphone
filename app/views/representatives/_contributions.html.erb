@@ -7,11 +7,23 @@
 </nav>
 <div class="card-body scrollable">
   <div class="card-wrapper">
+    <% total = @representative.contributions.sum(&:amount) %>
+    <% if total > 0 %>
+      <h3 class="contributions-total"><%= fa_icon "money-bill-alt" %><span>Recieved $<%=  number_with_delimiter(total, :delimiter => ',') %> from Relevant Dark Money Groups</span><%= fa_icon "money-bill-alt" %></h3>
+    <% elsif total < 0 %>
+      <h3 class="contributions-total"><%= fa_icon "money-bill-alt" %><span>Opposed with $<%=  number_with_delimiter(total*-1, :delimiter => ',') %> from Relevant Dark Money Groups!</span><%= fa_icon "money-bill-alt" %></h3>
+    <% else %>
+      <h3 class="contributions-total"><%= fa_icon "money-bill-alt" %><span>Recieved No Money from Relevant Dark Money Groups!</span><%= fa_icon "money-bill-alt" %></h3>
+    <% end %>
     <% @representative.contributions.each do |contribution| %>
       <% lobbyist = contribution.lobbyist %>
       <div class="card">
         <div class="card-header">
-          Recieved $<%=contribution.amount%> from <%=lobbyist.name%> on <%= contribution.date %>
+          <% if contribution.amount > 0 %>
+            Recieved $<%=number_with_delimiter(contribution.amount, :delimiter => ',') %> from <%=lobbyist.name%> on <%= contribution.date.to_formatted_s(:long) %>
+          <% elsif contribution.amount < 0 %>
+            Opponent recieved $<%=number_with_delimiter(contribution.amount*-1, :delimiter => ',') %> from <%=lobbyist.name%> on <%= contribution.date.to_formatted_s(:long) %>
+          <% end %>
         </div>
         <div class="card-body">
           <p><%= lobbyist.description %><p>
