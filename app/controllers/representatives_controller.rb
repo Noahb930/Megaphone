@@ -144,6 +144,6 @@ class RepresentativesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def representative_params
-      params.require(:representative).permit(:name, :district, :party, :profession, :img, :url, :email, :rating)
+      params.require(:representative).permit(:name, :district, :party, :profession, :img, :url, :email, :rating, :summary)
     end
 end

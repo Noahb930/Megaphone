@@ -13,9 +13,9 @@
  *= require_tree .
  *= require_self
  */
- *{
+* {
    font-family: "Raleway", Helvetica, sans-serif;
-   box-sizing:border-box;
+   box-sizing: border-box;
  }
 html{
  width: 100%;
@@ -39,7 +39,7 @@ body{
   height: 50px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   justify-content: space-between;
   padding: 0px 20px;
@@ -123,6 +123,8 @@ footer{
   box-shadow: 10px 0px 0px 0px rgba(0, 0, 0, 0.25), 0px 6px 20px 0px rgba(0, 0, 0, 0.25);
   bottom: 0;
   position: fixed;
+  font-family: "Fredoka One";
+  z-index: 3;
 }
 .logo{
   height:100px;
@@ -138,9 +140,11 @@ footer{
   margin-right: 0px;
   display: inline;
   color: #888;
-  font-family: "Futura";
   font-weight:500;
-
+}
+.footer_link a{
+  font-family: "Fredoka One";
+  letter-spacing: 1px;
 }
 .footer_link:not(:first-child)::before{
   content: "|";
