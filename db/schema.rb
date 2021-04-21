@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_160058) do
+ActiveRecord::Schema.define(version: 2021_04_21_181853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,17 @@ ActiveRecord::Schema.define(version: 2021_04_16_160058) do
     t.string "url"
     t.string "fec_id"
     t.string "summary"
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.float "lat"
+    t.float "lng"
+    t.datetime "time"
+    t.string "state_senate_district"
+    t.string "state_assembly_district"
+    t.string "us_house_district"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "votes", force: :cascade do |t|

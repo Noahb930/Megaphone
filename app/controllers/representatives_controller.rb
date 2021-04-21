@@ -91,7 +91,7 @@ class RepresentativesController < ApplicationController
       professions = ["NYC City Council Member","NY State Assembly Member","NY State Senator","US House Member"]
       properties = ["coun_dist","district","district","district"]
       [file_paths,professions,properties].transpose.each do |file_path,profession,property|
-        file = File.read(file_path).downcase
+        file = File.read("public/district_maps/"+file_path).downcase
         map = JSON.parse(file)
         map["features"].each do |feature|
           district = "District " + feature["properties"][property].to_s.sub(/^[0]+/,'')
@@ -127,6 +127,15 @@ class RepresentativesController < ApplicationController
         end
       end
       @reps += Representative.where(profession:"US Senator")
+      visit = Visit.new(
+        lat:latlng[0], 
+        lng:latlng[1], 
+        time:Time.new, 
+        state_senate_district: @reps.find{ |rep| rep.profession=="NY State Senator"}.district,
+        state_assembly_district: @reps.find{ |rep| rep.profession=="NY State Assembly Member"}.district,
+        us_house_district: @reps.find{ |rep| rep.profession=="US House Member"}.district
+      )
+      visit.save
     end
   end
 

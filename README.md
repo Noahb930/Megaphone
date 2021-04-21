@@ -63,11 +63,14 @@ Request API keys from the following APIs and input them into `/.env` according t
 * [ProPublica Congress API](https://www.propublica.org/datastore/api/propublica-congress-api)
 * [Open States API](https://openstates.org/accounts/login/?next=/accounts/profile/)
 * [OpenFEC API](https://api.open.fec.gov/developers) 
+* [MapBox API](https://docs.mapbox.com/api/overview/) 
+
 ```bash
 export BING_API_KEY = "API_KEY"
 export PROPUBLICA_API_KEY = "API_KEY"
 export OPEN_STATES_API_KEY = "API_KEY"
 export OPEN_FEC_API_KEY  = "API_KEY"
+export MAPBOX_ACCESS_TOKEN  = "ACCESS_TOKEN"
 ```
 ### Update Styling
 * Put the HTML for your organizations Navbar in `/app/views/layouts/_header.html.erb`

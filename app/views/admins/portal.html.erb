@@ -1,2 +1,181 @@
-<h1>Portal</h1>
-<%= link_to 'Sign out', destroy_admin_session_path, :method => :delete %>
+<% content_for :title, "ADMIN PORTAL" %>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+<div id='dashboard'>
+    <div class="map-row">
+        <div class="map-container">
+            <h2> Visits by Location </h2>
+            <div id='cluster-map' class="map"></div>
+        </div>
+        <div class="time-series-container">
+            <h2> Visits over Time </h2>
+            <div id='time-series' class="time-series"></div>
+        </div>
+    </div>
+    <div class="map-row">
+        <div class="map-container">
+            <h2> Visits by State Senate District </h2>
+            <div id='state-senate-map' class="map"></div>
+        </div>
+        <div class="map-container">
+            <h2> Visits by State Assembly District </h2>
+            <div id='state-assembly-map' class="map"></div>
+        </div>
+        <div class="map-container">
+            <h2> Visits by US House District </h2>
+            <div id='us-house-map' class="map"></div>
+        </div>
+    </div>
+</div>
+<script>
+    mapboxgl.accessToken = "<%= ENV["MAPBOX_ACCESS_TOKEN"] %>";
+   
+    var data = [{
+        x: <%= raw Visit.all.map {|visit| visit.time.to_s } %>,
+        y: [1, 3, 6],
+        type: 'scatter'
+    }];
+
+    Plotly.newPlot('time-series', data);
+    
+    var clusterMap = new mapboxgl.Map({
+        container: 'cluster-map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-75.54020206455392, 42.81152190277737],
+        zoom: 5,
+        maxZoom: 15,
+        minZoom: 5,
+        maxBounds: [
+            [-80.95646183017976, 40.346544284996185],
+            [-70.12394229892975, 45.182036988519],
+        ]
+    });
+    clusterMap.on('load', function () {
+        clusterMap.addSource('earthquakes', {
+            type: 'geojson',
+            data: {
+                "type": "FeatureCollection",
+                "features": [
+                    <% Visit.all.each do |visit| %>
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [<%= visit.lng%>, <%=visit.lat%>]
+                            }
+                        },
+                    <% end %>
+                ]
+            },
+            cluster: true,
+            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+        });
+ 
+        clusterMap.addLayer({
+            id: 'clusters',
+            type: 'circle',
+            source: 'earthquakes',
+            filter: ['has', 'point_count'],
+            paint: {
+            'circle-color': ['step',['get', 'point_count'],'#51bbd6',100,'#f1f075',750,'#f28cb1'],
+            'circle-radius': ['step',['get', 'point_count'],20,100,30,750,40]
+            }
+        });
+    
+        clusterMap.addLayer({
+            id: 'cluster-count',
+            type: 'symbol',
+            source: 'earthquakes',
+            filter: ['has', 'point_count'],
+            layout: {
+                'text-field': '{point_count_abbreviated}',
+                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                'text-size': 12
+            }
+        });
+    
+        clusterMap.addLayer({
+            id: 'unclustered-point',
+            type: 'circle',
+            source: 'earthquakes',
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+                'circle-color': '#11b4da',
+                'circle-radius': 4,
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#fff'
+            }
+        });
+    });
+
+    <% state_senate_visits = Array.new(Representative.where(profession:"NY State Senator").length,0) %>
+    <% state_assembly_visits = Array.new(Representative.where(profession:"NY State Assembly Member").length,0) %>
+    <% us_house_visits = Array.new(Representative.where(profession:"US House Member").length,0) %>
+    <% Visit.all.each do |visit| %>
+        <% state_senate_visits[visit.state_senate_district.split(" ")[1].to_i-1] += 1 %>
+        <% state_assembly_visits[visit.state_assembly_district.split(" ")[1].to_i-1] += 1 %>
+        <% us_house_visits[visit.us_house_district.split(" ")[1].to_i-1] += 1 %>
+    <% end %>
+    <% p us_house_visits%>
+    const districtVisits = {
+        "state-senate-map": <%= raw state_senate_visits %>,
+        "state-assembly-map" : <%= raw state_assembly_visits %>,
+        "us-house-map": <%= raw state_senate_visits %>
+    }
+    const districtColors = {
+        "state-senate-map": <%= raw state_senate_visits.map { |visits| "hsl(200,50%,#{100-70*visits/state_senate_visits.max}%)" }%>,
+        "state-assembly-map" : <%= raw state_assembly_visits.map { |visits| "hsl(200,50%,#{100-70*visits/state_assembly_visits.max}%)"} %>,
+        "us-house-map": <%= raw state_senate_visits.map { |visits| "hsl(200,50%,#{100-70*visits/us_house_visits.max}%)"} %>
+    }
+    const chambers = [
+        {container:"state-senate-map",file:"state_senate_map.json",profession:"NY State Senator"},
+        {container:"state-assembly-map",file:"state_assembly_map.json",profession:"NY State Assembly Member"},
+        {container:"us-house-map",file:"us_house_map.json",profession:"US House Member"}
+    ]
+    
+    for (const chamber of chambers){
+        const districtMap = new mapboxgl.Map({
+            container: chamber.container,
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-75.54020206455392, 42.81152190277737],
+            zoom: 5,
+            maxZoom: 15,
+            minZoom: 5,
+            maxBounds: [
+                [-80.95646183017976, 40.346544284996185],
+                [-70.12394229892975, 45.182036988519],
+            ]
+        });
+        districtMap.on('load', function () {
+            districtMap.addSource("districts", {
+                'type': 'geojson',
+                'data': "district_maps/"+chamber.file
+            });   
+            districtMap.addLayer({
+                'id': "districts-layer",
+                'type': 'fill',
+                'source': "districts",
+                'layout': {},
+                'paint': {
+                    'fill-color': ["to-color",["at",["-",["to-number",["get","DISTRICT"]],1],["literal",districtColors[chamber.container]]]]
+                    ,'fill-opacity': 0.6}
+            });
+            districtMap.addLayer({
+                'id': 'outline',
+                'type': 'line',
+                'source': "districts",
+                'layout': {},
+                'paint': {'line-color': '#000','line-width': 1 }
+            });
+            districtMap.on('click', "districts-layer", function (event) {
+                district = parseInt(event.features[0]["properties"]["DISTRICT"])
+                new mapboxgl.Popup()
+                    .setLngLat(event.lngLat)
+                    .setHTML(`There have been ${districtVisits[chamber.container][district]} visits by residents of District ${district}`)
+                    .addTo(districtMap);
+            });
+        })
+    }
+</script>
