@@ -1,4 +1,3 @@
-require 'byebug'
 require 'watir'
 require 'nokogiri'
 namespace :fetch_committees do
