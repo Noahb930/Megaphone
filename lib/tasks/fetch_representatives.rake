@@ -87,7 +87,7 @@ namespace :fetch_representatives do
     end
     JSON.parse(res.body)["results"][0]["members"].each do |rep|
       if rep["state"] == "NY"
-        representative = Representative.new(name: [rep["first_name"],rep["last_name"]].join(" "), party: "(#{rep["party"]})", district: "District #{rep["district"]}", profession: "US House Member", img: "https://theunitedstates.io/images/congress/original/#{rep["id"]}.jpg", fec_id: rep["fec_candidate_id"], rating:"?")
+        representative = Representative.new(name: [rep["first_name"],rep["middle_name"],rep["last_name"]].reject(&:blank?).join(" "), party: "(#{rep["party"]})", district: "District #{rep["district"]}", profession: "US House Member", img: "https://theunitedstates.io/images/congress/original/#{rep["id"]}.jpg", fec_id: rep["fec_candidate_id"], rating:"?")
         representative.save!
       end
     end

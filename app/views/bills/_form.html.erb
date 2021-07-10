@@ -27,7 +27,7 @@
   </div>
   <div class="field bill-session-field">
     <%= form.label :session %>
-    <%= form.select :session, options_for_select(["Select A Session"]+[*2000..2020], :selected => @bill.session)%>
+    <%= form.select :session, options_for_select(["Select A Session"]+[*2000..2021], :selected => @bill.session)%>
     <% if @bill.errors[:session].any? %>
       <span class="error"> <%= @bill.errors.full_messages_for(:session).to_sentence %> </span>
     <% end %>

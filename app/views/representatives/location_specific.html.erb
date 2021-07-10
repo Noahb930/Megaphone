@@ -62,7 +62,7 @@
         timeline.seek(timeline.duration * $(window).scrollTop() / ($("body").height() - $(window).height()))
       })
     });
-    let templates = {
+    let email_templates = {
       <% EmailTemplate.all.each do |template| %>
         <%= template.id %>: {
           subject: "<%= template.subject %>",
